@@ -1,0 +1,15 @@
+{
+  "name": "momentum-extension",
+  "version": "1.0.0",
+  "description": "This is a momentum extension type project. In this extension image will change after some time and todo list is also added. ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel index.html"
+  },
+  "author": "Ashish Kr Saini",
+  "license": "ISC",
+  "devDependencies": {
+    "sass": "^1.26.5"
+  }
+}
