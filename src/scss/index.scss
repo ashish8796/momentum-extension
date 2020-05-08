@@ -16,25 +16,111 @@ body {
   border-radius: 10px;
   bottom: 5em;
   right: 50px;
-  border: 2px solid red;
+  border: 2px solid #07eff8;
   width: 30%;
   background: #000000e8;
   color: #fff;
 }
 
 .start-todo {
-  display: flex;
-  justify-content: center;
-  height: 100px;
   font-size: 18px;
   text-align: center;
   margin: 10px;
+
+  // .hint {
+  //   margin: 2.5em 0;
+  // }
+
+  .start-btn {
+    margin: 10px;
+    text-align: center;
+    padding: 10px;
+    width: 130px;
+    outline: none;
+    font-size: 20px;
+    border: none;
+    border-radius: 4px;
+    background: #03a9f4;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .inbox {
+    font-size: 30px;
+  }
+}
+.drop-down {
+  position: relative;
+  display: none;
+  margin-bottom: 1em;
+  margin-left: 4px;
+  width: fit-content;
+}
+
+.inbox-down-arrow {
+  display: flex;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.icon {
+  width: 23px;
+  height: 23px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
+  margin-left: 5px;
+
+  &:hover {
+    background-color: #575454e8;
+  }
+}
+
+.fa-caret-down {
+  color: #918c8c;
+}
+
+.drop-down-btn {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  z-index: 1;
+  left: 15px;
+  border-radius: 4px;
+  background: #222222;
+
+  .op-btn {
+    padding: 5px;
+    background: none;
+    color: #fff;
+    outline: none;
+    text-align: left;
+    font-size: 15px;
+    border: none;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  #completed {
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+  }
 }
 
 .new-todo {
+  display: none;
   font-size: 20px;
   width: 90%;
   margin-left: 20px;
+  margin-bottom: 3px;
   outline: none;
   border: none;
   background: none;
@@ -46,7 +132,6 @@ body {
   flex-direction: row;
   justify-content: space-between;
   position: relative;
-  margin: 5px 0;
 
   p:first-of-type {
     font-size: 20px;
@@ -81,6 +166,7 @@ body {
 }
 
 .section-2 {
+  position: relative;
   display: flex;
   flex-direction: row;
 }
@@ -88,6 +174,9 @@ body {
 .select {
   display: flex;
   flex-direction: column;
+  position: absolute;
+  z-index: 2;
+  right: 30px;
   background-color: #272525f7;
   margin: 3px 5px;
   border-radius: 4px;
@@ -118,8 +207,8 @@ body {
 .option {
   position: relative;
   text-align: center;
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   border-radius: 50%;
   margin-right: 5px;
   visibility: hidden;
@@ -147,8 +236,8 @@ body {
 
   p {
     z-index: 1;
-    top: -1px;
-    right: 7px;
+    top: -3px;
+    right: 4px;
     position: absolute;
     color: #fff;
     font-size: 20px;

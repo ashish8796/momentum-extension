@@ -1,9 +1,10 @@
 const wrapper = document.querySelector(".wrapper");
 
-const accessKey = "MQ5C-bR-XwJfxJWu5arGKUYGbNp35eojUf1pKyLHGQc";
-const api = "https://api.unsplash.com/photos/random/?client_id=";
+// const accessKey = "MQ5C-bR-XwJfxJWu5arGKUYGbNp35eojUf1pKyLHGQc";
+const api = "https://source.unsplash.com/1600x900/?nature"
+;
 
-const uri = api + accessKey;
+const uri = api;
 
 fetchUri(uri)
 
@@ -13,11 +14,7 @@ setInterval(()=> {
 
 function fetchUri(uri) {
   fetch(uri)
-    .then(response => response.json())
-    .then(data => {
-      const image = data;
-      const img = document.createElement("img");
-      img.setAttribute("src", `${image.urls.regular}`)
-      wrapper.style.cssText = `background-image: url(${image.urls.regular})`;
+    .then(response => {
+      wrapper.style.cssText = `background-image: url(${response.url})`;
     })
 }

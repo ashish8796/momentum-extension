@@ -22,8 +22,8 @@ export const generateTodoMarkUp = (el) => {
     return `
       <div class="todo" id="t-${todo.id}" data-id="t-${todo.id}">
         <section class="section-1">
-          <input type="checkbox">
-          <p data-id="t-${todo.id}">${todo.value}</p>
+          <input type="checkbox" class="ckbox" data-id="t-${todo.id}" ${todo.isCompleted && "checked"}>
+            <p data-id="t-${todo.id}" style="text-decoration:  ${todo.isCompleted && 'line-through'};">${todo.value}</p>
           <input type="text" value="${todo.value}" class="edit-todo" data-id="t-${todo.id}">
         </section>
         <section class="section-2" data-id="t-${todo.id}">
@@ -42,9 +42,9 @@ export const generateTodoMarkUp = (el) => {
   }).join("")
   el.innerHTML = markupString;
 }
-
+export let selectVisible = {visible: false};
 export const toggleOption = (element) => {
-
+  selectVisible.visible = true;
   if (element.classList.contains("hide")) {
     element.classList.remove("hide")
   }
@@ -54,7 +54,7 @@ export const toggleOption = (element) => {
 }
 
 export const deletTodo = (todoId) => {
-  state.todos = state.todos.filter(todo => "t-"+todo.id != todoId)
+  state.todos = state.todos.filter(todo => "t-" + todo.id != todoId)
 }
 
 export const editTodo = (todoId) => {
@@ -63,6 +63,7 @@ export const editTodo = (todoId) => {
 
   let editValue = document.querySelector(`#${todoId}>.section-1>.edit-todo`);
   editValue.style.display = "block";
+  editValue.focus()
   new InputHandler(editValue, (newValue) => {
     state.todos.forEach(todo => {
       if ("t-" + todo.id == todoId) {
@@ -72,5 +73,26 @@ export const editTodo = (todoId) => {
     editValue.style.display = "none";
     generateTodoMarkUp(todoList);
   })
+}
+
+export const completTodo = (target,todoId) => {
+  let pTag = document.querySelector(`#${todoId}>.section-1>p`);
+  if (target.checked) {
+    state.todos.forEach(todo => {
+      if ("t-" + todo.id == todoId) {
+        todo.isCompleted = !todo.isCompleted;
+      }
+    })
+    pTag.style.cssText = "text-decoration: line-through";
+  }
+  else {
+    state.todos.forEach(todo => {
+      if ("t-" + todo.id == todoId) {
+        todo.isCompleted = !todo.isCompleted;
+      }
+    })
+    pTag.style.cssText = "text-decoration: none";
+  }
+
 }
 export default state;

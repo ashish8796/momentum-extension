@@ -4,12 +4,27 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <script src="https://kit.fontawesome.com/60217b89b5.js" crossorigin="anonymous"></script>
   </head>
   <body>
     <div class="wrapper">
       <div class="todos">
         <div class="start-todo">
-          <p>Add a todo to get started</p>
+          <p class="hint">Add a todo to get started</p>
+          <button class="start-btn">+Add Todo</button>
+          <div class="drop-down">
+            <div class="inbox-down-arrow">
+              <p class="inbox">Inbox</p>
+              <div class="icon">
+                <i class="fas fa-caret-down"></i>
+              </div>
+            </div>
+            <div class="drop-down-btn">
+              <button class="op-btn" id="active">Active</button>
+              <button class="op-btn" id="completed">Completed</button>
+              <button class="op-btn" id="all">All</button>
+            </div>
+          </div>
         </div>
         <div class="todo-list"></div>
         <input type="text" placeholder="New Todo" class="new-todo" />
