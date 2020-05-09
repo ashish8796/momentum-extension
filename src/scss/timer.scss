@@ -2,18 +2,37 @@
 
 .timer {
   position: absolute;
-  left: 40%;
+  left: 33%;
   top: 30%;
   font-weight: 500;
   color: #fff;
 }
 
 .time {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   font-family: "Changa", sans-serif;
   font-size: 4em;
-  span {
-    margin: 0 13px;
+
+  & div:first-child {
+    width: 365px;
+    & span:last-child {
+      margin-right: 0;
+    }
   }
+
+  & div:last-child {
+    span {
+      margin: 0;
+    }
+    margin-top: 10px;
+    font-size: 0.8em;
+  }
+  span {
+    margin: 0 10px;
+  }
+
   .hour {
     margin-left: 0;
   }

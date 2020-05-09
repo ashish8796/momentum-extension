@@ -1,7 +1,6 @@
+import setting from "./setting";
+
 // Time related variables
-// const timerDiv = document.querySelector(".timer");
-// const hour12Div = document.querySelector(".hour12-time");
-// const timeDiv = document.querySelector(".time");
 let hourElem = document.querySelector(".hour")
 let minuteElem = document.querySelector(".minute");
 let secondElem = document.querySelector(".second");
@@ -15,9 +14,11 @@ let dayElem = document.querySelector(".day");
 
 
 amPmElem.style.display = "none";
+
 const timerState = {
   el: null,
-  statePoint: ''
+  statePoint: '',
+  isAmPmVisible: false
 }
 
 // Function for taking new date
@@ -25,30 +26,20 @@ const newDate = () => {
   timerState.statePoint = new Date();
 }
 
-// Function for making doble digit value
-const makeDoubleDigit = (array) => {
-  array.forEach((value,index) => {
-      array[index] = value < 10 ? "0" + value : value;
-    })
-
-  return array;
-}
-
 // Function for changing the time format
-const changeFormat = (hour) => {
-  if (Number(hour) > 13) {
-    hour = hour - 12;
-    hour = hour < 10 ? "0" + hour : hour;
-  }
+export const changeFormat = (hour) => {
+  amPmElem.innerText = hour > 11 ? "PM" : "AM";
+  hour = hour > 13 ? hour < 10 ? "0" + hour : hour : "0" + hour;
   return hour;
 }
 
 // Function for setting time
 const setTime = (dateStr) => {
-  let [hour, minutes, seconds] = makeDoubleDigit([dateStr.getHours(), dateStr.getMinutes(), dateStr.getSeconds()])
-  hourElem.innerText = true ? changeFormat(hour) : hour;
-  minuteElem.innerText = minutes;
-  secondElem.innerText = seconds;
+  let hour = String(dateStr).slice(16, 18);
+
+  hourElem.innerText = setting.isChangeHourFormat ? changeFormat(Number(hour)) : String(dateStr).slice(16, 18);
+  minuteElem.innerText = String(dateStr).slice(19, 21);
+  secondElem.innerText = String(dateStr).slice(22, 24);
 }
 
 //Function for setting new date
