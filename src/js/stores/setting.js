@@ -2,7 +2,6 @@ import timerState,{changeFormat} from "./timer";
 
 // Setting variables
 const settingDiv = document.querySelector(".setting-container");
-const cogIcon = document.querySelector(".fa-cog");
 const cogOption = document.querySelector(".cog-option");
 const hourFormat = document.querySelector(".hour-format");
 
@@ -35,7 +34,7 @@ settingDiv.addEventListener("click", (event) => {
     hourFormat.innerText = hourFormat.innerText == 12 ? 24 : 12;
     setting.isChangeHourFormat = !setting.isChangeHourFormat;
     timerState.isAmPmVisible = setting.isChangeHourFormat ? true : false;
-    console.log("ampmVisible: " + timerState.isAmPmVisible);
+
     let hour = new Date().getHours();
     hourElem.innerText = setting.isChangeHourFormat ? changeFormat(hour) : hour < 10 ? "0" + hour : hour;
     amPmElem.style.display = timerState.isAmPmVisible ? "block" : "none";

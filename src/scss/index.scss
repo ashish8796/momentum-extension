@@ -32,7 +32,6 @@ body {
   width: 20%;
   background: #000000e8;
   color: #fff;
-
 }
 
 .start-todo {
@@ -270,4 +269,51 @@ body {
     color: #fff;
     font-size: 20px;
   }
+}
+
+.links {
+  position: absolute;
+  color: #fff;
+  top: 5%;
+  left: 5%;
+  
+  p {
+    font-size: 20px;
+    padding: 5px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+footer {
+  position: absolute;
+  bottom: 30px;
+  left: 38%;
+}
+
+nav {
+  display: inline-flex;
+  list-style: none;
+}
+
+li {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  margin: 0 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    background: #000000;
+  }
+}
+
+i {
+  font-size: 25px;
+  color: #fff;
+  margin: 0 20px;
 }
