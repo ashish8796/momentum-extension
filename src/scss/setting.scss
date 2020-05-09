@@ -1,0 +1,46 @@
+.setting-container {
+  position: absolute;
+  z-index: 1;
+  right: 30px;
+  top: 30px;
+  display: flex;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.fa-cog {
+  color: #ddcbcb;
+  font-size: 30px;
+}
+
+.cog-option {
+  display: none;
+  background: #222222;
+  border-radius: 5px;
+  margin-top: 5px;
+  margin-right: 10px;
+
+  button {
+    width: 100%;
+    text-align: left;
+    color: #fff;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 16px;
+    padding: 10px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .add-links {
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+  }
+
+
+}

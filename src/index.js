@@ -1,8 +1,18 @@
-import "./scss/reset.scss";
+// Importing scss file
 import "./scss/index.scss";
+
+
+// Importing different js files
 import "./js/stores/fetch";
 
+// importing different function from todos.js file
 import state, { setTodoForOptions, generateTodoMarkUp, pushTodo, toggleOption, deletTodo, editTodo, completTodo, selectVisible } from "./js/stores/todos";
+
+// Importing TimerState object from timer.js file
+import timerState from "./js/stores/timer";
+
+// Importing setting.js file
+import "./js/stores/setting";
 
 //Todos variable
 let todosDiv = document.querySelector(".todos");
@@ -11,6 +21,8 @@ const todoList = document.querySelector(".todo-list");
 let hint = document.querySelector(".hint");
 const dropDown = document.querySelector(".drop-down");
 
+
+// Add New todo here
 newToDo.addEventListener("change", (event) => {
   let value = newToDo.value;
   let obj = {
@@ -28,10 +40,12 @@ newToDo.addEventListener("change", (event) => {
 let toggleElement;
 let dropDownVisible = false;
 
+// Eventlistener on the Todos div
 todosDiv.addEventListener("click", (event) => {
   let target = event.target;
   let targetId = target.dataset.id;
   toggleElement = document.querySelector(`#${state.currentActiveTodo}>.section-2>.select`);
+
 
   if (target.classList.contains("start-btn")) {
     hint.style.display = "none";
@@ -113,6 +127,7 @@ todosDiv.addEventListener("click", (event) => {
   }
 })
 
+// toggleing the drop-down class in html
 const toggleDropDown = () => {
   if (!dropDownVisible) {
     dropDown.children[1].style.display = "flex";

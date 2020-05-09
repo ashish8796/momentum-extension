@@ -23,7 +23,7 @@ export const generateTodoMarkUp = (el) => {
       <div class="todo" id="t-${todo.id}" data-id="t-${todo.id}">
         <section class="section-1">
           <input type="checkbox" class="ckbox" data-id="t-${todo.id}" ${todo.isCompleted && "checked"}>
-            <p data-id="t-${todo.id}" style="text-decoration:  ${todo.isCompleted && 'line-through'};">${todo.value}</p>
+            <p data-id="t-${todo.id}" style="color:  ${todo.isCompleted && 'gray'};">${todo.value}</p>
           <input type="text" value="${todo.value}" class="edit-todo" data-id="t-${todo.id}">
         </section>
         <section class="section-2" data-id="t-${todo.id}">
@@ -83,7 +83,7 @@ export const completTodo = (target,todoId) => {
         todo.isCompleted = !todo.isCompleted;
       }
     })
-    pTag.style.cssText = "text-decoration: line-through";
+    pTag.style.cssText = "color: gray";
   }
   else {
     state.todos.forEach(todo => {
@@ -91,7 +91,7 @@ export const completTodo = (target,todoId) => {
         todo.isCompleted = !todo.isCompleted;
       }
     })
-    pTag.style.cssText = "text-decoration: none";
+    pTag.style.cssText = "color: #fff";
   }
 
 }

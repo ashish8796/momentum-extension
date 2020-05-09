@@ -4,17 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <script src="https://kit.fontawesome.com/60217b89b5.js" crossorigin="anonymous"></script>
+    <script
+      src="https://kit.fontawesome.com/60217b89b5.js"
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
     <div class="wrapper">
+      <div class="overlay"></div>
+      <!-- Todos html -->
       <div class="todos">
         <div class="start-todo">
           <p class="hint">Add a todo to get started</p>
           <button class="start-btn">+Add Todo</button>
           <div class="drop-down">
             <div class="inbox-down-arrow">
-              <p class="inbox">Inbox</p>
+              <p class="inbox">Today</p>
               <div class="icon">
                 <i class="fas fa-caret-down"></i>
               </div>
@@ -28,6 +33,43 @@
         </div>
         <div class="todo-list"></div>
         <input type="text" placeholder="New Todo" class="new-todo" />
+      </div>
+
+      <!-- Time html -->
+      <div class="timer">
+        <div class="time">
+          <p>
+            <span class="hour">12</span> : <span class="minute">00</span> :
+            <span class="second">00</span> <span class="am-pm">AM</span>
+          </p>
+        </div>
+        <div class="current-date">
+          <p>
+            <span class="day">Sat</span>, <span class="date">8</span> <span class="month">Jun</span>
+            <span class="year">2022</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Daily quotes -->
+      <div class="quetos"></div>
+
+      <!-- Setting -->
+      <div class="setting-container">
+        <div class="cog-option">
+          <div class="change-hour-format">
+            <button class="change-hour-btn"><span class="hour-format">12</span> Hour Format</button>
+          </div>
+          <div class="add-links">
+            <button>Add Links</button>
+          </div>
+          <div class="remove-quotes">
+            <button>Remove Quetos</button>
+          </div>
+        </div>
+        <div class="cog-btn">
+          <i class="fas fa-cog"></i>
+        </div>
       </div>
     </div>
     <script src="./src/index.js"></script>

@@ -1,3 +1,7 @@
+@import "./reset.scss";
+@import "./timer.scss";
+@import "./setting.scss";
+
 body {
   box-sizing: border-box;
   font-family: sans-serif;
@@ -11,15 +15,24 @@ body {
   background-position: center;
 }
 
+.overlay {
+  position: absolute;
+  // border: 2px solid blue;
+  width: 100%;
+  height: 100%;
+  background-color: #00000060;
+}
+
 .todos {
   position: absolute;
   border-radius: 10px;
   bottom: 5em;
   right: 50px;
   border: 2px solid #07eff8;
-  width: 30%;
+  width: 20%;
   background: #000000e8;
   color: #fff;
+
 }
 
 .start-todo {
@@ -27,12 +40,13 @@ body {
   text-align: center;
   margin: 10px;
 
-  // .hint {
-  //   margin: 2.5em 0;
-  // }
+  .hint {
+    // margin: 2.5em 0;
+    color: #07eff8;
+  }
 
   .start-btn {
-    margin: 10px;
+    margin: 1.5em auto;
     text-align: center;
     padding: 10px;
     width: 130px;
@@ -54,7 +68,7 @@ body {
 .drop-down {
   position: relative;
   display: none;
-  margin-bottom: 1em;
+  margin-bottom: 1.5em;
   margin-left: 4px;
   width: fit-content;
 }
@@ -126,15 +140,24 @@ body {
   background: none;
   color: #fff;
 }
+.todo-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 .todo {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   position: relative;
+  margin: 5px auto;
+  background: #2a2929;
+  width: 95%;
+  border-radius: 3px;
 
   p:first-of-type {
-    font-size: 20px;
+    font-size: 18px;
   }
 
   &:hover {
@@ -147,10 +170,15 @@ body {
 .section-1 {
   display: flex;
   flex-direction: row;
+  align-items: center;
   margin-left: 5px;
 
-  input {
-    margin: 5px 10px;
+  .ckbox {
+    margin: 5px 15px 5px 3px;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   .edit-todo {
@@ -236,7 +264,7 @@ body {
 
   p {
     z-index: 1;
-    top: -3px;
+    top: -2px;
     right: 4px;
     position: absolute;
     color: #fff;

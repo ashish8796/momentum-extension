@@ -1,0 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Changa:wght@400;500;600;700&family=Dosis:wght@400;500;600;700&display=swap");
+
+.timer {
+  position: absolute;
+  left: 40%;
+  top: 30%;
+  font-weight: 500;
+  color: #fff;
+}
+
+.time {
+  font-family: "Changa", sans-serif;
+  font-size: 4em;
+  span {
+    margin: 0 13px;
+  }
+  .hour {
+    margin-left: 0;
+  }
+}
+
+.current-date {
+  font-family: "Dosis", sans-serif;
+  font-size: 3em;
+  margin-top: 25px;
+}
