@@ -1,0 +1,27 @@
+.weater-div {
+  // border: 2px solid red;
+  width: 120px;
+  position: absolute;
+  left: 40px;
+  top: 60px;
+}
+
+.weather {
+  color: #ffffff;
+  position: relative;
+}
+
+.temperature {
+  font-weight: 600;
+  position: absolute;
+  top: 25%;
+  right: 0;
+}
+
+.city {
+  font-weight: 600;
+  font-size: 20px;
+  top: 0;
+  left: 20%;
+  position: absolute;
+}

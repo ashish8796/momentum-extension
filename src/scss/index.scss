@@ -1,6 +1,8 @@
 @import "./reset.scss";
 @import "./timer.scss";
 @import "./setting.scss";
+@import "./quote.scss";
+@import "./weather.scss";
 
 body {
   box-sizing: border-box;
@@ -20,7 +22,7 @@ body {
   // border: 2px solid blue;
   width: 100%;
   height: 100%;
-  background-color: #00000060;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .todos {
@@ -271,26 +273,11 @@ body {
   }
 }
 
-.links {
-  position: absolute;
-  color: #fff;
-  top: 5%;
-  left: 5%;
-  
-  p {
-    font-size: 20px;
-    padding: 5px;
-
-    &:hover {
-      cursor: pointer;
-    }
-  }
-}
-
 footer {
   position: absolute;
   bottom: 30px;
   left: 38%;
+  z-index: 3;
 }
 
 nav {
@@ -299,6 +286,7 @@ nav {
 }
 
 li {
+
   width: 35px;
   height: 35px;
   border-radius: 50%;
@@ -310,10 +298,12 @@ li {
   &:hover {
     background: #000000;
   }
+
+  i {
+    font-size: 25px;
+    color: #fff;
+    margin: 0 20px;
+    overflow: hidden;
+  }
 }
 
-i {
-  font-size: 25px;
-  color: #fff;
-  margin: 0 20px;
-}

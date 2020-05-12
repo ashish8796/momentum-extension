@@ -4,6 +4,8 @@ import "./scss/index.scss";
 
 // Importing different js files
 import "./js/stores/fetch";
+import "./js/stores/quotes";
+import "./js/stores/weather";
 
 // importing different function from todos.js file
 import state, { setTodoForOptions, generateTodoMarkUp, pushTodo, toggleOption, deletTodo, editTodo, completTodo, selectVisible } from "./js/stores/todos";
@@ -75,7 +77,6 @@ todosDiv.addEventListener("click", (event) => {
   }
 
   if (target.classList.contains("delet")) {
-    console.log("delet is working")
     state.currentActiveTodo = null;
     deletTodo(targetId)
     generateTodoMarkUp(todoList)

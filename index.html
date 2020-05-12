@@ -12,6 +12,7 @@
   <body>
     <div class="wrapper">
       <div class="overlay"></div>
+
       <!-- Todos html -->
       <div class="todos">
         <div class="start-todo">
@@ -54,56 +55,77 @@
       </div>
 
       <!-- Daily quotes -->
-      <div class="quetos"></div>
+      <div class="quotes">
+        <h1 class="quote"></h1>
+      </div>
+
+      <!-- Weather -->
+      <div class="weater-div">
+        <div class="weather"></div>
+      </div>
 
       <!-- Setting -->
       <div class="setting-container">
         <div class="cog-option">
-          <div class="change-hour-format">
-            <button class="change-format-btn">
-              <span class="hour-format">12</span> Hour Format
-            </button>
-          </div>
-          <div class="add-links">
-            <button>Add Links</button>
-            <form>
-              <input type="text" class="link-name" placeholder="Link Name" autofocus="autofocus" />
-              <input type="text" class="url" placeholder="example.com" />
-            </form>
-          </div>
-          <div class="remove-quotes">
-            <button>Remove Quetos</button>
-          </div>
+          <!-- Left-side section -->
+          <section class="setting-opt">
+            <h1>12 Hour Format</h1>
+            <h1>Add Links</h1>
+            <h1>Quotes</h1>
+            <h1>Change City</h1>
+          </section>
+
+          <!-- Right-side section -->
+          <section class="change-setting">
+            <!-- Div for changing the time formate form 24Hr to 12Hr or vice-versa  -->
+            <div class="change-hour-format">
+              <div class="on-off-btn">
+                <div class="off"><p id="p-off">OFF</p></div>
+                <div class="on"><p id="p-on">ON</p></div>
+              </div>
+            </div>
+
+            <!-- Div for entering shortcut links -->
+            <div class="shortcut-links">
+              <form class="twitter-Username">
+                <input type="text" placeholder="Twitter Username" />
+              </form>
+              <form class="linkedin-Username">
+                <input type="text" placeholder="Linkedin Username" />
+              </form>
+              <form class="facebook-Username">
+                <input type="text" placeholder="Facebook Username" />
+              </form>
+              <form class="git-hub-Username">
+                <input type="text" placeholder="Github Username" />
+              </form>
+            </div>
+
+            <!-- On-Off div for the quotes -->
+            <div class="on-off-quotes">
+              <div class="show-quotes-btn">
+                <div class="off hide-quote"><p id="p-hide-q">OFF</p></div>
+                <div class="on show-quote"><p id="p-show-q">ON</p></div>
+              </div>
+            </div>
+
+            <!-- Form for changing the city -->
+            <div class="change-city">
+              <form class="city-form">
+                <input type="text" class="city-input" placeholder="Enter City Name">
+              </form>
+            </div>
+          </section>
         </div>
+
         <div class="cog-btn">
           <i class="fas fa-cog"></i>
         </div>
       </div>
 
-      <!-- Links -->
-      <div class="links">
-        <p>Links</p>
-      </div>
-
       <!-- Footer for quick links -->
       <footer>
-        <nav>
-          <li>
-            <a href="https://www.twitter.com"
-              ><i class="fab fa-twitter" target="blank"></i
-            ></a>
-          </li>
-          <li>
-            <a href="https://www.linkedin.com" target="blank"
-              ><i class="fab fa-linkedin-in"></i
-            ></a>
-          </li>
-          <li>
-            <a href="https://www.facebook.com" target="blank"
-              ><i class="fab fa-facebook-f"></i
-            ></a>
-          </li>
-        </nav>
+        <nav></nav>
       </footer>
     </div>
     <script src="./src/index.js"></script>

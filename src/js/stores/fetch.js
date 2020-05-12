@@ -15,6 +15,7 @@ setInterval(()=> {
 function fetchUri(uri) {
   fetch(uri)
     .then(response => {
+      // console.log(response)
       wrapper.style.cssText = `background-image: url(${response.url})`;
     })
 }

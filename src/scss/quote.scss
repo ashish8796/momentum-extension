@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital@1&display=swap');
+
+.quotes {
+  position: absolute;
+  left: 25%;
+  top: 60%;
+  width: 600px;
+
+  .quote {
+    font-size: 30px;
+    color: #ffffff;
+    line-height: 30px;
+    font-family: 'Lora', serif;
+    // font-family: 'Patrick Hand', cursive;
+    font-style: italic;
+  }
+}
