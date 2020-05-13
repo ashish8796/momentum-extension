@@ -29,7 +29,7 @@ const newDate = () => {
 // Function for changing the time format
 export const changeFormat = (hour) => {
   amPmElem.innerText = hour > 11 ? "PM" : "AM";
-  hour = hour >= 13 ? hour - 12 < 10 ? "0" + (hour - 12) : hour : hour < 10 ? "0" + hour : hour;
+  hour = hour >= 13 ? hour - 12 < 10 ? "0" + (hour - 12) : (hour-12) : hour < 10 ? "0" + hour : hour;
   return hour;
 }
 

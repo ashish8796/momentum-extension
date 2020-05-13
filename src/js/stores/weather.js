@@ -20,7 +20,7 @@ const weatherState = {
   },
 
   get wetherMarkup() {
-    // let fragment = new DocumentFragment();
+
     return `
     <div class="city">
       <h1>${this.cityName}</h1>
@@ -29,28 +29,32 @@ const weatherState = {
       <p>${this.currentTemp}&degc</p>
     </div>
     <div class="clouds">
-      <img src="${this.iconUrl}"
+      <img src="${this.iconUrl}" alt="${this.weather}" title="${this.weather}">
     </div>`
   }
 }
 
 
 export const fetchWeather = (uri) => {
-  console.log(uri);
 
   fetch(uri)
     .then(response => response.json())
     .then(data => {
-      console.log(data)
       weatherState.currentTemp = Math.round(data.main.temp - 275)
       weatherState.weather = data.weather[0].description;
       weatherState.icon = data.weather[0].icon;
       weatherState.cityName = data.name;
-      console.log(weatherState)
       weatherElem.innerHTML = weatherState.wetherMarkup;
+      console.log(weatherState)
     })
 }
 
-// fetchWeather(weatherState.uri)
+function getCurrentPlace (location) {
+  console.log(location)
+}
+navigator.geolocation.getCurrentPosition((location)=>{
+  getCurrentPlace(location)
+});
+// console.log(currentPlace)
 
 export default weatherState;

@@ -1,6 +1,6 @@
 import timerState, { changeFormat } from "./timer";
 import { fetchUri } from "./quotes";
-import weatherState, {fetchWeather} from "./weather";
+import weatherState, { fetchWeather } from "./weather";
 
 // Setting variables
 const settingDiv = document.querySelector(".setting-container");
@@ -64,13 +64,11 @@ settingDiv.addEventListener("click", (event) => {
 
   //Click on the setting icon
   if (target.classList.contains("fa-cog")) {
-    console.log("I m Working")
     setting.toggleCogOption()
   }
 
   // Click on the "On" button
   if (target.classList.contains("on") || target.id === "p-on") {
-    console.log("I m Working")
     let onBtn = document.querySelector(".on");
     onBtn.style.cssText = "background-color: #05dfd7";
     setting.onOffbtn()
@@ -78,7 +76,6 @@ settingDiv.addEventListener("click", (event) => {
 
   // Click on the  "Off" button
   if (target.classList.contains("off") || target.id === "p-off") {
-    console.log("I m Working")
     let onBtn = document.querySelector(".on");
     onBtn.style.cssText = "background-color: #30475e";
     setting.onOffbtn()
@@ -86,7 +83,6 @@ settingDiv.addEventListener("click", (event) => {
 
   // Click on the "show-quote" button 
   if (target.classList.contains(".show-quote") || target.id === "p-show-q") {
-    console.log("I m Working")
     let showQuote = document.querySelector(".show-quote");
     showQuote.style.cssText = "background-color: #05dfd7";
     fetchUri()
@@ -94,7 +90,6 @@ settingDiv.addEventListener("click", (event) => {
 
   // Click on the "hide-quote" button
   if (target.classList.contains("hide-quote") || target.id === "p-hide-q") {
-    console.log("I m Working")
     quoteElem.innerText = "";
     let showQuote = document.querySelector(".show-quote");
     showQuote.style.cssText = "background-color: #30475e";
@@ -102,56 +97,59 @@ settingDiv.addEventListener("click", (event) => {
 
   // AddEventListener on the "Twitter Username" form
   twitterForm.addEventListener("submit", (event) => {
-    console.log("I m Working")
     event.preventDefault()
-    let twitterUsername = target.value;
+    event.stopImmediatePropagation()
+    let input = document.querySelector(".twitter-Username > input");
+    let twitterUsername = input.value;
     setting.userNameLinks.twitter.username = twitterUsername;
-    target.value = "";
+    input.value = "";
     addLinkToFooter(setting.userNameLinks)
   })
 
   // AddEventListener on the "Linkedin Username" form
   linkedinForm.addEventListener("submit", (event) => {
-    console.log("I m Working")
+
     event.preventDefault()
-    let linkedinUsername = target.value;
+    event.stopImmediatePropagation()
+    let input = document.querySelector(".linkedin-Username > input");
+    let linkedinUsername = input.value;
     setting.userNameLinks.linkedin.username = linkedinUsername;
-    target.value = "";
+    input.value = "";
     addLinkToFooter(setting.userNameLinks)
   })
 
   // AddEventListener on the "Facebook Username" form
   facebookForm.addEventListener("submit", (event) => {
-    console.log("I m Working")
     event.preventDefault()
-    let facebookUsername = target.value;
+    event.stopImmediatePropagation()
+    let input = document.querySelector(".facebook-Username > input");
+    let facebookUsername = input.value;
     setting.userNameLinks.facebook.username = facebookUsername;
-    target.value = "";
+    input.value = "";
     addLinkToFooter(setting.userNameLinks)
   })
 
   // AddEventListener on the "GitHub Username" form
   gitHubForm.addEventListener("submit", (event) => {
-    console.log("I m Working")
     event.preventDefault()
-    let gitHubUsername = target.value;
+    event.stopImmediatePropagation()
+    let input = document.querySelector(".git-hub-Username > input");
+    let gitHubUsername = input.value;
+    input.value = "";
     setting.userNameLinks.github.username = gitHubUsername;
-    target.value = "";
     addLinkToFooter(setting.userNameLinks)
-  
+
   })
 
   // AddEventListener on the "Change city form"
   cityForm.addEventListener("submit", (event) => {
     event.preventDefault()
     event.stopImmediatePropagation()
-    console.log("cityForm m Working")
-    weatherState.query = target.value;
-    console.log(weatherState.query)
-    target.value = "";
+    let input = document.querySelector(".city-form > input");
+    weatherState.query = input.value;
+    input.value = "";
 
     fetchWeather(weatherState.uri)
-    // event.stopPropagation()
   })
 
 })
@@ -159,7 +157,7 @@ settingDiv.addEventListener("click", (event) => {
 function addLinkToFooter(linkObj) {
   let markUpString = "";
   for (let key in linkObj) {
-    console.log(key)
+    // console.log(key)
     let username = linkObj[key].username;
     if (username) {
       let liElem = `<li>

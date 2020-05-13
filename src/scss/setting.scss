@@ -7,6 +7,7 @@
 }
 
 .cog-btn {
+  position: relative;
   padding-left: 15px;
 
   &:hover {
@@ -17,21 +18,30 @@
     color: #ddcbcb;
     font-size: 30px;
   }
+
 }
-
-
+.fa-cog:hover::after {
+  content: "Settings";
+  position: absolute;
+  top: 40px;
+  left: 3px;
+  font-size: 18px;
+  background-color: #1f2124;
+  border-radius: 3px;
+  padding: 5px;
+  font-weight: 400;
+}
 
 .cog-option {
   display: none;
   // display: grid;
-  grid-template-columns: .5fr 1.5fr;
+  grid-template-columns: 0.5fr 1.5fr;
   grid-template-rows: 1fr;
   width: 800px;
   height: 500px;
   background: #d4f8e8;
   border-radius: 10px;
   padding: 20px;
-  // color: #000000;
 }
 
 .setting-opt {
@@ -41,8 +51,6 @@
   font-size: 20px;
   box-shadow: 0px 0px 7px 3px #11999e;
   color: #ffffff;
-  // color: #3e4149;
-  // font-weight: 600;
 
   h1 {
     text-align: center;
@@ -51,14 +59,19 @@
     padding: 5px;
     border-radius: 6px;
     text-indent: 8px;
-    box-shadow: 4px 4px 4px  #3b6978;
+    box-shadow: 4px 4px 4px #3b6978;
   }
 
   & h1:nth-child(2) {
     margin-top: 2.8em;
   }
+
   & h1:nth-child(3) {
     margin-top: 3.2em;
+  }
+
+  & h1:nth-child(4) {
+    margin-top: 1.9em;
   }
 }
 
@@ -69,7 +82,9 @@
   box-shadow: 0px 0px 7px 3px #8e9595;
 }
 
-.change-hour-format, .on-off-quotes {
+.change-hour-format,
+.on-off-quotes,
+.change-city {
   font-size: 25px;
   padding: 10px 45px;
   margin: 10px;
@@ -77,14 +92,15 @@
   border-radius: 10px;
 }
 
-.on-off-btn, .show-quotes-btn {
+.on-off-btn,
+.show-quotes-btn {
   width: 100%;
   display: flex;
   width: fit-content;
   overflow: hidden;
   border-radius: 3px;
   font-size: 18px;
-  box-shadow: 4px 4px 6px  #3b6978;
+  box-shadow: 4px 4px 6px #3b6978;
 
   div {
     &:hover {
@@ -120,7 +136,8 @@
 }
 
 .show-quote {
-  background-color: #05dfd7
+  background-color: #05dfd7;
+  text-align: center;
 }
 
 .shortcut-links {
@@ -132,18 +149,23 @@
   border-radius: 10px;
   padding: 10px 50px;
   background-color: #6fe7dd;
+}
 
-  input {
-    outline: none;
-    font-size: 20px;
-    width: 200px;
-    box-shadow: 3px 5px 5px 1px #565758b0;
-    border: none;
-    border-radius: 3px;
-    text-indent: 20px;
+.shortcut-links > form > input,
+.change-city > form > input {
+  outline: none;
+  font-size: 20px;
+  width: 200px;
+  box-shadow: 3px 5px 5px 1px #565758b0;
+  border: none;
+  border-radius: 3px;
+  text-indent: 20px;
 
-    &::placeholder {
-      font-size: 18px;
-    }
+  &::placeholder {
+    font-size: 18px;
   }
+}
+
+.change-city {
+  margin: 20px 10px;
 }
