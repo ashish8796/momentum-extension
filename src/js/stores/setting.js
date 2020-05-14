@@ -32,6 +32,11 @@ const cityForm = document.querySelector(".city-form");
 let setting = {
   isCogOptionVisible: false,
   isChangeHourFormat: false,
+  onBtnColor: "#05dfd7",
+  offBtnColor: "#30475e",
+  changeHourFormatElem: null,
+  showQuoteElem: null,
+
   userNameLinks: {
     "twitter": { username: "", iconClass: "fab fa-twitter" },
     "facebook": { username: "", iconClass: "fab fa-facebook-f" },
@@ -48,6 +53,7 @@ let setting = {
 
   // Changes 24Hr format to 12Hr format or vise-versa
   onOffbtn() {
+    this.changeHourFormatElem.style.cssText = `background-color: ${this.changeHourFormatElem.classList.contains("on") ? this.onBtnColor : this.offBtnColor}`;
     this.isChangeHourFormat = !this.isChangeHourFormat;
     timerState.isAmPmVisible = this.isChangeHourFormat ? true : false;
     let hour = new Date().getHours();
@@ -56,6 +62,8 @@ let setting = {
   }
 }
 
+// LocalStorage for getting the setting
+localStorage.setItem("userSetting", JSON.stringify(setting));
 
 // AddEventListener on setting-container div in html
 settingDiv.addEventListener("click", (event) => {
@@ -65,26 +73,33 @@ settingDiv.addEventListener("click", (event) => {
   //Click on the setting icon
   if (target.classList.contains("fa-cog")) {
     setting.toggleCogOption()
+    localStorage.setItem("userSetting", JSON.stringify(setting));
+    console.log(setting)
   }
 
   // Click on the "On" button
   if (target.classList.contains("on") || target.id === "p-on") {
+    setting.onBtnColor = "#05dfd7";
     let onBtn = document.querySelector(".on");
-    onBtn.style.cssText = "background-color: #05dfd7";
+    setting.changeHourFormatElem = onBtn;
     setting.onOffbtn()
+    localStorage.setItem("userSetting", JSON.stringify(setting));
+    console.log(setting)
   }
 
   // Click on the  "Off" button
   if (target.classList.contains("off") || target.id === "p-off") {
-    let onBtn = document.querySelector(".on");
-    onBtn.style.cssText = "background-color: #30475e";
+    setting.onBtnColor = "#30475e";
     setting.onOffbtn()
+    localStorage.setItem("userSetting", JSON.stringify(setting));
+    console.log(setting)
   }
 
   // Click on the "show-quote" button 
   if (target.classList.contains(".show-quote") || target.id === "p-show-q") {
     let showQuote = document.querySelector(".show-quote");
-    showQuote.style.cssText = "background-color: #05dfd7";
+    setting.showQuoteElem = showQuote;
+    setting.showQuoteElem.style.cssText = "background-color: #05dfd7";
     fetchUri()
   }
 
@@ -104,6 +119,7 @@ settingDiv.addEventListener("click", (event) => {
     setting.userNameLinks.twitter.username = twitterUsername;
     input.value = "";
     addLinkToFooter(setting.userNameLinks)
+    localStorage.setItem("userSetting", JSON.stringify(setting));
   })
 
   // AddEventListener on the "Linkedin Username" form
@@ -116,6 +132,7 @@ settingDiv.addEventListener("click", (event) => {
     setting.userNameLinks.linkedin.username = linkedinUsername;
     input.value = "";
     addLinkToFooter(setting.userNameLinks)
+    localStorage.setItem("userSetting", JSON.stringify(setting));
   })
 
   // AddEventListener on the "Facebook Username" form
@@ -127,6 +144,7 @@ settingDiv.addEventListener("click", (event) => {
     setting.userNameLinks.facebook.username = facebookUsername;
     input.value = "";
     addLinkToFooter(setting.userNameLinks)
+    localStorage.setItem("userSetting", JSON.stringify(setting));
   })
 
   // AddEventListener on the "GitHub Username" form
@@ -138,6 +156,7 @@ settingDiv.addEventListener("click", (event) => {
     input.value = "";
     setting.userNameLinks.github.username = gitHubUsername;
     addLinkToFooter(setting.userNameLinks)
+    localStorage.setItem("userSetting", JSON.stringify(setting));
 
   })
 
@@ -148,7 +167,7 @@ settingDiv.addEventListener("click", (event) => {
     let input = document.querySelector(".city-form > input");
     weatherState.query = input.value;
     input.value = "";
-
+    localStorage.setItem("userSetting", JSON.stringify(setting));
     fetchWeather(weatherState.uri)
   })
 

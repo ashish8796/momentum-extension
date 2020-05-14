@@ -22,6 +22,9 @@ let newToDo = document.querySelector(".new-todo");
 const todoList = document.querySelector(".todo-list");
 let hint = document.querySelector(".hint");
 const dropDown = document.querySelector(".drop-down");
+const overlay = document.querySelector(".overlay");
+const startTodo = document.querySelector(".start-todo");
+
 
 
 // Add New todo here
@@ -41,6 +44,16 @@ newToDo.addEventListener("change", (event) => {
 
 let toggleElement;
 let dropDownVisible = false;
+
+// Eventlistener on overlay to display "hind" and "start-btn"
+overlay.addEventListener("click", (e) => {
+  if(e.target.classList.contains("overlay")) {
+    hint.style.display = "block";
+    startTodo.children[1].style.display = "block";
+    newToDo.style.display = "none";
+    dropDown.style.display = "none"
+  }
+})
 
 // Eventlistener on the Todos div
 todosDiv.addEventListener("click", (event) => {
@@ -166,3 +179,4 @@ const generateRequiredMarkUp = (array, el) => {
   }).join("")
   el.innerHTML = markupString;
 }
+

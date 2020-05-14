@@ -36,7 +36,7 @@ const weatherState = {
 
 
 export const fetchWeather = (uri) => {
-
+  // console.log(uri)
   fetch(uri)
     .then(response => response.json())
     .then(data => {
@@ -45,16 +45,26 @@ export const fetchWeather = (uri) => {
       weatherState.icon = data.weather[0].icon;
       weatherState.cityName = data.name;
       weatherElem.innerHTML = weatherState.wetherMarkup;
-      console.log(weatherState)
+      // console.log(weatherState)
     })
 }
 
-function getCurrentPlace (location) {
-  console.log(location)
-}
-navigator.geolocation.getCurrentPosition((location)=>{
-  getCurrentPlace(location)
-});
+// function getCurrentPlace (location) {
+//   console.log(location)
+// }
+let promise = new Promise((resolve) => {
+  navigator.geolocation.getCurrentPosition((location) => {
+    resolve(location)
+  })
+})
+
+promise.then(location => {
+  let latitude = location.coords.latitude;
+  let longitude = location.coords.longitude;
+  let uri = weatherState.baseUrl + `lat=${latitude}&lon=${longitude}&appid=` + weatherState.accessKey
+  fetchWeather(uri)
+})
+
 // console.log(currentPlace)
 
 export default weatherState;
