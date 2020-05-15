@@ -16,19 +16,25 @@ export const fetchWeather = (uri) => {
       weatherElem.innerHTML = weatherState.wetherMarkup;
       localStorage.setItem("userWeather", JSON.stringify(weatherState))
     })
+    .catch((error) => {
+      location.reload()
+    })
 }
 
 export function getCurrentWeather() {
   let promise = new Promise((resolve) => {
+    alert("Allow permission for your current location.")
     navigator.geolocation.getCurrentPosition((location) => {
       resolve(location)
     })
   })
 
   promise.then(location => {
-    let latitude = location.coords.latitude;
-    let longitude = location.coords.longitude;
-    let uri = weatherState.baseUrl + `lat=${latitude}&lon=${longitude}&appid=` + weatherState.accessKey
-    fetchWeather(uri)
+    if(location) {
+      let latitude = location.coords.latitude;
+      let longitude = location.coords.longitude;
+      let uri = weatherState.baseUrl + `lat=${latitude}&lon=${longitude}&appid=` + weatherState.accessKey
+      fetchWeather(uri)
+    }
   })
 }
