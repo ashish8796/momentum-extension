@@ -1,11 +1,15 @@
-import timerState, { changeFormat } from "./timer";
+import { changeFormat } from "./timer";
 import { fetchUri } from "./quotes";
-import weatherState, { fetchWeather } from "./weather";
+import { fetchWeather } from "./weather";
+import store from ".";
 
+const timer = store.timer;
+const setting = store.setting;
+const weather = store.weather;
+
+console.log(setting);
 // Setting variables
-const settingDiv = document.querySelector(".setting-container");
 const cogOption = document.querySelector(".cog-option");
-
 
 // Time Variable
 const hourElem = document.querySelector(".hour");
@@ -24,82 +28,62 @@ const navElem = document.querySelector("nav");
 const quoteElem = document.querySelector(".quote");
 
 // weather variables
-const weatherElem = document.querySelector(".weather");
 const cityForm = document.querySelector(".city-form");
 
-
-// Declaring an object named as Setting
-let setting = {
-  isCogOptionVisible: false,
-  isChangeHourFormat: false,
-  onBtnColor: "#05dfd7",
-  offBtnColor: "#30475e",
-  changeHourFormatElem: null,
-  showQuoteElem: null,
-
-  userNameLinks: {
-    "twitter": { username: "", iconClass: "fab fa-twitter" },
-    "facebook": { username: "", iconClass: "fab fa-facebook-f" },
-    "linkedin": { username: "", iconClass: "fab fa-linkedin-in" },
-    "github": { username: "", iconClass: "fab fa-github" }
-  },
-
-  // Toggling when clicking on the setting button 
-  toggleCogOption() {
-    cogOption.style.display = !this.isCogOptionVisible ? "grid" : "none";
-    this.isCogOptionVisible = !this.isCogOptionVisible;
-  },
-
-
-  // Changes 24Hr format to 12Hr format or vise-versa
-  onOffbtn() {
-    this.changeHourFormatElem.style.cssText = `background-color: ${this.changeHourFormatElem.classList.contains("on") ? this.onBtnColor : this.offBtnColor}`;
-    this.isChangeHourFormat = !this.isChangeHourFormat;
-    timerState.isAmPmVisible = this.isChangeHourFormat ? true : false;
-    let hour = new Date().getHours();
-    hourElem.innerText = setting.isChangeHourFormat ? changeFormat(hour) : hour < 10 ? "0" + hour : hour;
-    amPmElem.style.display = timerState.isAmPmVisible ? "block" : "none";
-  }
+// Toggling when clicking on the setting button 
+function toggleCogOption() {
+  cogOption.style.display = !setting.isCogOptionVisible ? "grid" : "none";
+  setting.isCogOptionVisible = !setting.isCogOptionVisible;
+  localStorage.setItem("userSetting", JSON.stringify(setting));
 }
 
-// LocalStorage for getting the setting
-localStorage.setItem("userSetting", JSON.stringify(setting));
+// Changes 24Hr format to 12Hr format or vise-versa
+function onOffbtn() {
+  setting.isChangeHourFormat = !setting.isChangeHourFormat;
+  localStorage.setItem("userSetting", JSON.stringify(setting));
+  timer.isAmPmVisible = setting.isChangeHourFormat ? true : false;
+  let hour = new Date().getHours();
+  hourElem.innerText = setting.isChangeHourFormat ? changeFormat(hour) : hour < 10 ? "0" + hour : hour;
+  timer.amPmElemDisplay = timer.isAmPmVisible ? "block" : "none";
+  localStorage.setItem("userTimer", JSON.stringify(timer));
+  amPmElem.style.display = timer.amPmElemDisplay;
+}
 
-// AddEventListener on setting-container div in html
-settingDiv.addEventListener("click", (event) => {
-  let target = event.target;
-  console.log(target);
+if (localStorage.hasOwnProperty("userSetting")) {
+  // toggleCogOption()
+  onOffbtn()
+}
+
+export function changeSetting(target) {
 
   //Click on the setting icon
   if (target.classList.contains("fa-cog")) {
-    setting.toggleCogOption()
-    localStorage.setItem("userSetting", JSON.stringify(setting));
-    console.log(setting)
+    toggleCogOption()
   }
 
   // Click on the "On" button
   if (target.classList.contains("on") || target.id === "p-on") {
-    setting.onBtnColor = "#05dfd7";
     let onBtn = document.querySelector(".on");
     setting.changeHourFormatElem = onBtn;
-    setting.onOffbtn()
+    onBtn.style.cssText = `background-color: ${setting.onBtnColor}`;
+    onOffbtn()
     localStorage.setItem("userSetting", JSON.stringify(setting));
-    console.log(setting)
   }
 
   // Click on the  "Off" button
   if (target.classList.contains("off") || target.id === "p-off") {
-    setting.onBtnColor = "#30475e";
-    setting.onOffbtn()
+    let onBtn = document.querySelector(".on");
+    onBtn.style.cssText = `background-color: ${setting.offBtnColor}`;
+    onOffbtn()
     localStorage.setItem("userSetting", JSON.stringify(setting));
-    console.log(setting)
   }
 
   // Click on the "show-quote" button 
   if (target.classList.contains(".show-quote") || target.id === "p-show-q") {
     let showQuote = document.querySelector(".show-quote");
     setting.showQuoteElem = showQuote;
-    setting.showQuoteElem.style.cssText = "background-color: #05dfd7";
+    localStorage.setItem("userSetting", JSON.stringify(setting));
+    setting.showQuoteElem.style.cssText = `background-color: ${setting.onBtnColor}`;
     fetchUri()
   }
 
@@ -107,7 +91,8 @@ settingDiv.addEventListener("click", (event) => {
   if (target.classList.contains("hide-quote") || target.id === "p-hide-q") {
     quoteElem.innerText = "";
     let showQuote = document.querySelector(".show-quote");
-    showQuote.style.cssText = "background-color: #30475e";
+    setting.showQuoteElem = showQuote;
+    setting.showQuoteElem.style.cssText = `background-color: ${setting.offBtnColor}`;
   }
 
   // AddEventListener on the "Twitter Username" form
@@ -165,13 +150,16 @@ settingDiv.addEventListener("click", (event) => {
     event.preventDefault()
     event.stopImmediatePropagation()
     let input = document.querySelector(".city-form > input");
-    weatherState.query = input.value;
+    weather.query = input.value;
+    console.log(weather.query)
     input.value = "";
+    localStorage.setItem("userWeather", JSON.stringify(weather))
     localStorage.setItem("userSetting", JSON.stringify(setting));
-    fetchWeather(weatherState.uri)
+    fetchWeather(weather.uri)
   })
+}
 
-})
+addLinkToFooter(setting.userNameLinks)
 
 function addLinkToFooter(linkObj) {
   let markUpString = "";
@@ -190,6 +178,3 @@ function addLinkToFooter(linkObj) {
   navElem.innerHTML = "";
   navElem.innerHTML = markUpString;
 }
-
-
-export default setting;

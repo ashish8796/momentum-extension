@@ -1,20 +1,21 @@
 // Importing scss file
 import "./scss/index.scss";
 
+// Importing stor from index.js in stores
+import store from "./js/stores";
+
+const timer = store.timer;
+const setting = store.setting;
+const weather = store.weather;
 
 // Importing different js files
 import "./js/stores/fetch";
-import "./js/stores/quotes";
-import "./js/stores/weather";
-
-// importing different function from todos.js file
 import state, { setTodoForOptions, generateTodoMarkUp, pushTodo, toggleOption, deletTodo, editTodo, completTodo, selectVisible } from "./js/stores/todos";
+import {changeSetting} from "./js/stores/setting";
+import {newDate, setDate, setTime} from "./js/stores/timer";
+import {getCurrentWeather} from "./js/stores/weather";
 
-// Importing TimerState object from timer.js file
-import timerState from "./js/stores/timer";
 
-// Importing setting.js file
-import "./js/stores/setting";
 
 //Todos variable
 let todosDiv = document.querySelector(".todos");
@@ -25,7 +26,15 @@ const dropDown = document.querySelector(".drop-down");
 const overlay = document.querySelector(".overlay");
 const startTodo = document.querySelector(".start-todo");
 
+// Setting variable
+const settingDiv = document.querySelector(".setting-container");
+const cogOption = document.querySelector(".cog-option");
 
+// Timer Variable
+const amPmElem = document.querySelector(".am-pm");
+
+// Weather Variable
+const weatherElem = document.querySelector(".weather");
 
 // Add New todo here
 newToDo.addEventListener("change", (event) => {
@@ -153,6 +162,53 @@ const toggleDropDown = () => {
   }
 }
 
+console.log("localStorage is about to work")
+// Setting functionality
+if(setting.isCogOptionVisible) {
+  cogOption.style.display = "grid";
+}
+if(timer.isAmPmVisible) {
+  console.log("Local Storage in setting working")
+  cogOption.style.display = "grid";
+  let onBtn = document.querySelector(".on");
+  console.log(onBnt)
+  onBtn.style.cssText = `background-color: ${setting.onBntColor}`;
+  cogOption.style.display = setting.isCogOptionVisible ? "grid" : "none";
+}
+
+settingDiv.addEventListener("click", (event)=> {
+  let target = event.target;
+  console.log(target);
+  changeSetting(target)
+})
+
+// Timer functionality
+amPmElem.style.display = timer.amPmElemDisplay;
+if (timer.isAmPmVisible) {
+  console.log("Local Storage in timer working")
+  amPmElem.innerText = timer.amPm
+}
+newDate()
+let dateString = timer.statePoint
+
+setTime(dateString)
+setDate(dateString)
+
+setInterval(() => {
+  newDate()
+  dateString = timer.statePoint
+  setTime(dateString)
+  setDate(dateString)
+}, 1000)
+
+// Weather functionality
+if(localStorage.hasOwnProperty("userWeather")) {
+  weatherElem.innerHTML = weather.wetherMarkup;
+}
+else {
+  getCurrentWeather()
+}
+
 const generateRequiredMarkUp = (array, el) => {
   el.innerHTML = "";
   let markupString = array.map(todo => {
@@ -179,4 +235,6 @@ const generateRequiredMarkUp = (array, el) => {
   }).join("")
   el.innerHTML = markupString;
 }
+
+// AddEventListener on the setting button
 

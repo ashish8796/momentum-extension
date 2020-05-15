@@ -1,42 +1,11 @@
 // Weather varialbles
 const weatherElem = document.querySelector(".weather");
 
+import store from "."
 
-const weatherState = {
-  accessKey: "c3ac998f040786cd10514604dc002d0e",
-  baseUrl: "http://api.openweathermap.org/data/2.5/weather?",
-  query: "",
-  currentTemp: "",
-  weather: "",
-  icon: "",
-  cityName: "",
-
-  get uri() {
-    return this.baseUrl + `q=${this.query}&appid=` + this.accessKey;
-  },
-
-  get iconUrl() {
-    return `http://openweathermap.org/img/wn/${this.icon}@2x.png`
-  },
-
-  get wetherMarkup() {
-
-    return `
-    <div class="city">
-      <h1>${this.cityName}</h1>
-    </div>
-    <div class="temperature">
-      <p>${this.currentTemp}&degc</p>
-    </div>
-    <div class="clouds">
-      <img src="${this.iconUrl}" alt="${this.weather}" title="${this.weather}">
-    </div>`
-  }
-}
-
+const weatherState = store.weather;
 
 export const fetchWeather = (uri) => {
-  // console.log(uri)
   fetch(uri)
     .then(response => response.json())
     .then(data => {
@@ -45,26 +14,21 @@ export const fetchWeather = (uri) => {
       weatherState.icon = data.weather[0].icon;
       weatherState.cityName = data.name;
       weatherElem.innerHTML = weatherState.wetherMarkup;
-      // console.log(weatherState)
+      localStorage.setItem("userWeather", JSON.stringify(weatherState))
     })
 }
 
-// function getCurrentPlace (location) {
-//   console.log(location)
-// }
-let promise = new Promise((resolve) => {
-  navigator.geolocation.getCurrentPosition((location) => {
-    resolve(location)
+export function getCurrentWeather() {
+  let promise = new Promise((resolve) => {
+    navigator.geolocation.getCurrentPosition((location) => {
+      resolve(location)
+    })
   })
-})
 
-promise.then(location => {
-  let latitude = location.coords.latitude;
-  let longitude = location.coords.longitude;
-  let uri = weatherState.baseUrl + `lat=${latitude}&lon=${longitude}&appid=` + weatherState.accessKey
-  fetchWeather(uri)
-})
-
-// console.log(currentPlace)
-
-export default weatherState;
+  promise.then(location => {
+    let latitude = location.coords.latitude;
+    let longitude = location.coords.longitude;
+    let uri = weatherState.baseUrl + `lat=${latitude}&lon=${longitude}&appid=` + weatherState.accessKey
+    fetchWeather(uri)
+  })
+}
