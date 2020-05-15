@@ -1,19 +1,19 @@
 import { InputHandler } from "./../utils";
 const todoList = document.querySelector(".todo-list");
 
-const state = {
-  todos: [],
-  currentActiveTodo: null,
-  lastActiveTodo: null,
-}
+import store from ".";
+
+const state = store.todos;
 
 export const setTodoForOptions = (current, last) => {
   state.currentActiveTodo = current;
   state.lastActiveTodo = last;
+  localStorage.setItem("userTodos", JSON.stringify(state));
 }
 
 export const pushTodo = (todo) => {
   state.todos.push(todo);
+  localStorage.setItem("userTodos", JSON.stringify(state));
 }
 
 export const generateTodoMarkUp = (el) => {
@@ -42,9 +42,9 @@ export const generateTodoMarkUp = (el) => {
   }).join("")
   el.innerHTML = markupString;
 }
-export let selectVisible = {visible: false};
+
 export const toggleOption = (element) => {
-  selectVisible.visible = true;
+  state.isSelectVisible = true;
   if (element.classList.contains("hide")) {
     element.classList.remove("hide")
   }
@@ -55,6 +55,7 @@ export const toggleOption = (element) => {
 
 export const deletTodo = (todoId) => {
   state.todos = state.todos.filter(todo => "t-" + todo.id != todoId)
+  localStorage.setItem("userTodos", JSON.stringify(state));
 }
 
 export const editTodo = (todoId) => {
@@ -70,6 +71,7 @@ export const editTodo = (todoId) => {
         todo.value = newValue;
       }
     })
+    localStorage.setItem("userTodos", JSON.stringify(state));
     editValue.style.display = "none";
     generateTodoMarkUp(todoList);
   })
@@ -83,6 +85,7 @@ export const completTodo = (target,todoId) => {
         todo.isCompleted = !todo.isCompleted;
       }
     })
+    localStorage.setItem("userTodos", JSON.stringify(state));
     pTag.style.cssText = "color: gray";
   }
   else {
@@ -91,8 +94,8 @@ export const completTodo = (target,todoId) => {
         todo.isCompleted = !todo.isCompleted;
       }
     })
+    localStorage.setItem("userTodos", JSON.stringify(state));
     pTag.style.cssText = "color: #fff";
   }
-
 }
 export default state;

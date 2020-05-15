@@ -2,7 +2,7 @@ import store from ".";
 let setting = store.setting;
 
 const timerState = store.timer;
-console.log(timerState)
+
 // Time related variables
 let hourElem = document.querySelector(".hour")
 let minuteElem = document.querySelector(".minute");

@@ -7,13 +7,14 @@ import store from "./js/stores";
 const timer = store.timer;
 const setting = store.setting;
 const weather = store.weather;
+const state = store.todos;
 
 // Importing different js files
 import "./js/stores/fetch";
-import state, { setTodoForOptions, generateTodoMarkUp, pushTodo, toggleOption, deletTodo, editTodo, completTodo, selectVisible } from "./js/stores/todos";
-import {changeSetting} from "./js/stores/setting";
-import {newDate, setDate, setTime} from "./js/stores/timer";
-import {getCurrentWeather} from "./js/stores/weather";
+import { setTodoForOptions, generateTodoMarkUp, pushTodo, toggleOption, deletTodo, editTodo, completTodo } from "./js/stores/todos";
+import { changeSetting } from "./js/stores/setting";
+import { newDate, setDate, setTime } from "./js/stores/timer";
+import { getCurrentWeather } from "./js/stores/weather";
 
 
 
@@ -25,6 +26,7 @@ let hint = document.querySelector(".hint");
 const dropDown = document.querySelector(".drop-down");
 const overlay = document.querySelector(".overlay");
 const startTodo = document.querySelector(".start-todo");
+const startBtn = document.querySelector(".start-btn");
 
 // Setting variable
 const settingDiv = document.querySelector(".setting-container");
@@ -54,34 +56,46 @@ newToDo.addEventListener("change", (event) => {
 let toggleElement;
 let dropDownVisible = false;
 
+function initTodo() {
+  hint.style.display = state.todos.length > 0 ? "none" : "block";
+  startBtn.style.display = state.todos.length > 0 ? "none" : "block";
+  dropDown.style.display = state.todos.length > 0 ? "block" : "none";
+  newToDo.style.display = state.todos.length > 0 ? "block" : "none";
+}
 // Eventlistener on overlay to display "hind" and "start-btn"
 overlay.addEventListener("click", (e) => {
-  if(e.target.classList.contains("overlay")) {
-    hint.style.display = "block";
-    startTodo.children[1].style.display = "block";
-    newToDo.style.display = "none";
-    dropDown.style.display = "none"
+  if (e.target.classList.contains("overlay")) {
+    initTodo()
+    newToDo.focus()
+    toggleOption(toggleElement)
   }
 })
 
+if (localStorage.hasOwnProperty("userTodos")) {
+  if (state.todos.length > 0) {
+    initTodo()
+  }
+  state.isSelectVisible = false;
+  localStorage.setItem("userTodos", JSON.stringify(state));
+  generateTodoMarkUp(todoList)
+}
 // Eventlistener on the Todos div
 todosDiv.addEventListener("click", (event) => {
   let target = event.target;
   let targetId = target.dataset.id;
   toggleElement = document.querySelector(`#${state.currentActiveTodo}>.section-2>.select`);
 
-
   if (target.classList.contains("start-btn")) {
     hint.style.display = "none";
-    target.style.display = "none";
-    dropDown.style.cssText = "display: block"
+    startBtn.style.display = "none";
+    dropDown.style.display = "block";
     newToDo.style.display = "block";
     newToDo.focus()
   }
 
+
   if (target.classList.contains("button")) {
     setTodoForOptions(targetId, state.currentActiveTodo);
-
     if (targetId !== state.lastActiveTodo) {
       if (state.lastActiveTodo) {
         let lastElement = document.querySelector(`#${state.lastActiveTodo}>.section-2>.select`);
@@ -94,36 +108,43 @@ todosDiv.addEventListener("click", (event) => {
 
   if (target.classList.contains("edit")) {
     toggleOption(toggleElement)
-    selectVisible.visible = false;
+    state.isSelectVisible = false;
+    localStorage.setItem("userTodos", JSON.stringify(state));
     editTodo(targetId)
   }
 
   if (target.classList.contains("delet")) {
     state.currentActiveTodo = null;
+    localStorage.setItem("userTodos", JSON.stringify(state));
     deletTodo(targetId)
+    initTodo()
     generateTodoMarkUp(todoList)
+
   }
 
   if (target.classList.contains("ckbox")) {
     completTodo(target, targetId);
-    if (selectVisible.visible) {
+    if (state.isSelectVisible) {
       toggleOption(toggleElement);
-      selectVisible.visible = false;
+      state.isSelectVisible = false;
+      localStorage.setItem("userTodos", JSON.stringify(state));
     }
   }
 
   if (target.classList.contains("inbox-down-arrow") || target.classList.contains("inbox") || target.classList.contains("icon") || target.classList.contains("fa-caret-down")) {
-    if (selectVisible.visible) {
+    if (state.isSelectVisible) {
       toggleOption(toggleElement);
-      selectVisible.visible = false;
+      state.isSelectVisible = false;
+      localStorage.setItem("userTodos", JSON.stringify(state));
     }
     toggleDropDown();
   }
 
   if (target.id == "active") {
-    if (selectVisible.visible) {
+    if (state.isSelectVisible) {
       toggleOption(toggleElement);
-      selectVisible.visible = false;
+      state.isSelectVisible = false;
+      localStorage.setItem("userTodos", JSON.stringify(state));
     }
     toggleDropDown();
     let array = state.todos.filter(todo => todo.isCompleted == false);
@@ -131,9 +152,10 @@ todosDiv.addEventListener("click", (event) => {
   }
 
   if (target.id == "completed") {
-    if (selectVisible.visible) {
+    if (state.isSelectVisible) {
       toggleOption(toggleElement);
-      selectVisible.visible = false;
+      state.isSelectVisible = false;
+      localStorage.setItem("userTodos", JSON.stringify(state));
     }
     toggleDropDown();
     let array = state.todos.filter(todo => todo.isCompleted == true);
@@ -141,9 +163,10 @@ todosDiv.addEventListener("click", (event) => {
   }
 
   if (target.id == "all") {
-    if (selectVisible.visible) {
+    if (state.isSelectVisible) {
       toggleOption(toggleElement);
-      selectVisible.visible = false;
+      state.isSelectVisible = false;
+      localStorage.setItem("userTodos", JSON.stringify(state));
     }
     toggleDropDown();
     generateTodoMarkUp(todoList);
@@ -162,30 +185,25 @@ const toggleDropDown = () => {
   }
 }
 
-console.log("localStorage is about to work")
 // Setting functionality
-if(setting.isCogOptionVisible) {
+if (setting.isCogOptionVisible) {
   cogOption.style.display = "grid";
 }
-if(timer.isAmPmVisible) {
-  console.log("Local Storage in setting working")
+if (timer.isAmPmVisible) {
   cogOption.style.display = "grid";
   let onBtn = document.querySelector(".on");
-  console.log(onBnt)
-  onBtn.style.cssText = `background-color: ${setting.onBntColor}`;
+  onBtn.style.cssText = `background-color: ${setting.onBtnColor}`;
   cogOption.style.display = setting.isCogOptionVisible ? "grid" : "none";
 }
 
-settingDiv.addEventListener("click", (event)=> {
+settingDiv.addEventListener("click", (event) => {
   let target = event.target;
-  console.log(target);
   changeSetting(target)
 })
 
 // Timer functionality
 amPmElem.style.display = timer.amPmElemDisplay;
 if (timer.isAmPmVisible) {
-  console.log("Local Storage in timer working")
   amPmElem.innerText = timer.amPm
 }
 newDate()
@@ -202,7 +220,7 @@ setInterval(() => {
 }, 1000)
 
 // Weather functionality
-if(localStorage.hasOwnProperty("userWeather")) {
+if (localStorage.hasOwnProperty("userWeather")) {
   weatherElem.innerHTML = weather.wetherMarkup;
 }
 else {
@@ -235,6 +253,3 @@ const generateRequiredMarkUp = (array, el) => {
   }).join("")
   el.innerHTML = markupString;
 }
-
-// AddEventListener on the setting button
-

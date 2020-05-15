@@ -7,7 +7,6 @@ const timer = store.timer;
 const setting = store.setting;
 const weather = store.weather;
 
-console.log(setting);
 // Setting variables
 const cogOption = document.querySelector(".cog-option");
 
@@ -47,11 +46,6 @@ function onOffbtn() {
   timer.amPmElemDisplay = timer.isAmPmVisible ? "block" : "none";
   localStorage.setItem("userTimer", JSON.stringify(timer));
   amPmElem.style.display = timer.amPmElemDisplay;
-}
-
-if (localStorage.hasOwnProperty("userSetting")) {
-  // toggleCogOption()
-  onOffbtn()
 }
 
 export function changeSetting(target) {
