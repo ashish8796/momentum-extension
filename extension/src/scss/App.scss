@@ -1,0 +1,28 @@
+body {
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+.wrapper {
+  height: 100vh;
+  position: relative;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  // border: 2px solid blue;
+}
+
+.overlay {
+  position: absolute;
+  // border: 2px solid blue;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.overlay1 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+}

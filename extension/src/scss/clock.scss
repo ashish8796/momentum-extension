@@ -1,0 +1,53 @@
+@import url("https://fonts.googleapis.com/css2?family=Changa:wght@400;500;600;700&family=Dosis:wght@400;500;600;700&display=swap");
+
+.timer {
+  position: absolute;
+  left: 33%;
+  // top: 30%;
+  font-weight: 500;
+  color: #fff;
+}
+
+.time {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-family: "Changa", sans-serif;
+  font-size: 4em;
+
+  & div:first-child {
+    width: 380px;
+    & span:last-child {
+      margin-right: 0;
+    }
+  }
+
+  & div:last-child {
+    span {
+      margin: 0;
+    }
+    margin-top: 10px;
+    font-size: 0.8em;
+  }
+  span {
+    margin: 0 10px;
+  }
+
+  .hour {
+    margin-left: 0;
+  }
+}
+
+.current-date {
+  font-family: "Dosis", sans-serif;
+  font-size: 3em;
+  margin-top: 25px;
+
+  .month {
+    margin-left: 10px;
+  }
+
+  .year {
+    margin-left: 10px;
+  }
+}
