@@ -17,7 +17,7 @@ export const fetchWeather = (uri) => {
       localStorage.setItem("userWeather", JSON.stringify(weatherState))
     })
     .catch((error) => {
-      location.reload()
+      // location.reload()
     })
 }
 
@@ -30,7 +30,7 @@ export function getCurrentWeather() {
   })
 
   promise.then(location => {
-    if(location) {
+    if (location) {
       let latitude = location.coords.latitude;
       let longitude = location.coords.longitude;
       let uri = weatherState.baseUrl + `lat=${latitude}&lon=${longitude}&appid=` + weatherState.accessKey
