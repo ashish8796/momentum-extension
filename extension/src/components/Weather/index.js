@@ -5,7 +5,7 @@ import { actions } from "./../../store/actionTypes";
 function Weather() {
   const dispatch = useDispatch();
   const { weatherState, currentLocation } = useSelector(state => state);
-  const { accessKey, baseUrl, currentTemp, weather, icon, cityName } = weatherState;
+  const { accessKey, baseUrl, query, currentTemp, weather, icon, cityName } = weatherState;
 
   let iconUrl = `http://openweathermap.org/img/wn/${icon}@2x.png`;
   let uri = baseUrl + `lat=${currentLocation.latitude}&lon=${currentLocation.longitude}&appid=` + accessKey;
@@ -30,9 +30,14 @@ function Weather() {
       let latitude = location.coords.latitude;
       let longitude = location.coords.longitude;
 
-      dispatch(actions.fetchCurrentLocation({ latitude, longitude }))
+      !cityName&&dispatch(actions.fetchCurrentLocation({ latitude, longitude }))
     });
   }, [])
+
+  useEffect(()=> {
+    const uri = baseUrl+`q=${query}&appid=` + accessKey;
+    query && fetchWeather(uri)
+  },[query])
 
   useEffect(() => {
     currentLocation.longitude && fetchWeather(uri);

@@ -115,8 +115,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-height: 180px;
+  overflow-y: scroll;
+  scrollbar-width: none;
 }
-
+::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
 .todo {
   display: flex;
   flex-direction: row;

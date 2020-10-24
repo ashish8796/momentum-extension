@@ -8,7 +8,24 @@ const newDate = () => {
   const month = String(dateStr).slice(4, 7);
   const day = String(dateStr).slice(0, 3);
 
-  return { date: { dateNum, day, month, year, }, time: { hour, minute, second } }
-}
+  // console.log(typeof hour);
+
+  return {
+    date: { dateNum, day, month, year },
+    time: { hour, minute, second },
+  };
+};
+
+export const changeFormat = (hour) => {
+  hour =
+    hour >= 13
+      ? hour - 12 < 10
+        ? "0" + (hour - 12)
+        : hour - 12
+      : hour < 10 && hour.length < 2
+      ? "0" + hour
+      : hour;
+  return hour;
+};
 
 export default newDate;

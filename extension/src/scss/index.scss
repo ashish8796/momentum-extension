@@ -4,12 +4,14 @@
 @import "./todos.scss";
 @import "./weather.scss";
 @import "./quotes.scss";
+@import "./configuration.scss";
+@import "./pomodoro.scss";
 
 footer {
   position: absolute;
-  bottom: 30px;
+  bottom: 1%;
   left: 38%;
-  z-index: 3;
+  z-index: 200;
 }
 
 nav {
@@ -18,8 +20,8 @@ nav {
 }
 
 li {
-  width: 35px;
-  height: 35px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   margin: 0 10px;
   display: flex;
@@ -30,8 +32,11 @@ li {
     background: #000000;
   }
 
-  i {
-    font-size: 25px;
+  a {
+    font-size: 30px;
+  }
+
+  svg {
     color: #fff;
     margin: 0 20px;
     overflow: hidden;
