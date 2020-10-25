@@ -24,10 +24,7 @@ function Todos() {
     setIsDropDownBtnVisivle(!isDropDownBtnVisivle);
   };
 
-  let sortArr;
-  if (tab === "all") {
-    sortArr = todoArr;
-  }
+  let sortArr = todoArr;
   if (tab === "active") sortArr = todoArr.filter((el) => !el.isCompleted);
   if (tab === "completed") sortArr = todoArr.filter((el) => el.isCompleted);
 
@@ -36,6 +33,9 @@ function Todos() {
     JSON.stringify({ isAddTodoVisible })
   );
 
+  // TODO:
+  // When todo len === 0. Show add todo button
+  // Remove localstorage for above
   return (
     <>
       <div

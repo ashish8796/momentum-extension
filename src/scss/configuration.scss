@@ -103,6 +103,11 @@
   border-radius: 10px;
 }
 
+.shortcut-links {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
 .on-off-btn,
 .show-quotes-btn {
   width: 100%;
@@ -164,8 +169,8 @@
   box-shadow: 3px 5px 5px 1px #565758b0;
   border: none;
   border-radius: 3px;
-  text-indent: 20px;
   margin: 10px;
+  padding: 8px;
 
   &::placeholder {
     font-size: 18px;

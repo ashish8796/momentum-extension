@@ -6,15 +6,23 @@ import Shortcuts from "../Shortcuts";
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "./../../store/actionTypes";
 
+// TODO:
+// 1 - Use Object for short url state
+// 2 - Create getSiteLink function for getting a site link -> getSiteLink(site) => siteLink
+// 3 - Create array for fields and map them to create jsx
 function Configuration() {
   const [isCogOptionVisible, setIsConOptionVisible] = useState(false);
-  const { showQuote, weatherState, settings, pomoMinute } = useSelector(
-    (state) => ({
-      ...state.quoteState,
-      ...state,
-      ...state.pomodoro,
-    })
-  );
+  const {
+    showQuote,
+    weatherState,
+    settings,
+    pomodoro: { pomoMinute = 5 },
+  } = useSelector(({ quoteState, settings, pomodoro, weatherState }) => ({
+    quoteState,
+    settings,
+    weatherState,
+    pomodoro,
+  }));
 
   const len = Object.keys(settings.linkObj).length;
 

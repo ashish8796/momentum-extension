@@ -11,6 +11,8 @@ function Clock() {
 
   useEffect(() => {
     dispatch(actions.changeDateAndTime(newDate()));
+    // TODO:
+    // Clear this interval
     setInterval(() => {
       dispatch(actions.changeDateAndTime(newDate()));
     }, 1000);

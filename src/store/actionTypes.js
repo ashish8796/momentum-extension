@@ -16,8 +16,10 @@ export const TOGGLE_QUOTE = "TOGGLE_QUOTE";
 export const CHANGE_FORMAT = "CHANGE_FORMAT";
 export const START_POMODORO = "START_POMODORO";
 export const CHANGE_POMODORO_TIME = "CHANGE_POMODORO_TIME";
-// export const
 
+// TODO:
+// 1 - Move actions to seperate file
+// 2 - Export individual function instead of whole object
 export const actions = {
   changeDateAndTime(newDate) {
     return {
@@ -33,6 +35,8 @@ export const actions = {
     };
   },
 
+  // TODO:
+  // Change getWallpaper to setWallpaper
   getWallpaper(url) {
     return {
       type: GET_WALLPAPER,
@@ -40,6 +44,8 @@ export const actions = {
     };
   },
 
+  // TODO:
+  // Change getCurrentWeather to setCurrentWeather
   getCurrentWeather(obj) {
     return {
       type: GET_CURRENT_WEATHER,

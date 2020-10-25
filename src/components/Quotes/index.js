@@ -4,10 +4,14 @@ import { actions } from "./../../store/actionTypes";
 
 function Quotes() {
   const { quoteUri, quote, showQuote } = useSelector(
-    (state) => state.quoteState
+    ({ quoteState }) => quoteState
   );
   const dispatch = useDispatch();
 
+  // TODO:
+  // Move fetchUri to redux thunk
+
+  // Try to async await
   const fetchUri = (uri) => {
     fetch(uri)
       .then((response) => response.json())

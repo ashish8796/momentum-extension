@@ -19,12 +19,13 @@ import {
   CHANGE_POMODORO_TIME,
 } from "./actionTypes";
 
+// TODO:
+// Break main reducer to small reducers
+
 const initialState = {
   weatherState: localStorage.hasOwnProperty("weather")
     ? JSON.parse(localStorage.getItem("weather"))
     : {
-        accessKey: "c3ac998f040786cd10514604dc002d0e",
-        baseUrl: "http://api.openweathermap.org/data/2.5/weather?",
         query: "",
         currentTemp: "",
         weather: "",

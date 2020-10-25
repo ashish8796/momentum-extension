@@ -3,6 +3,8 @@ import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "../../store/actionTypes";
 
+// TODO:
+// Rewrite this component
 function Pomodoro() {
   const audio = useRef();
   const { pomoMinute, pomoSecond, pomoStart } = useSelector(
