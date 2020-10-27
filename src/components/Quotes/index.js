@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { actions } from "./../../store/actionTypes";
+import { getQuotes } from "../../store/actions";
 
 function Quotes() {
   const { quoteUri, quote, showQuote } = useSelector(
@@ -17,7 +17,8 @@ function Quotes() {
       .then((response) => response.json())
       .then((data) => {
         let quote = data.contents.quotes[0].quote;
-        dispatch(actions.getQuotes(quote));
+        // console.log(quote)
+        dispatch(getQuotes(quote));
       });
   };
 

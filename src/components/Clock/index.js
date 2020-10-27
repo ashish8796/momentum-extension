@@ -1,21 +1,27 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { actions } from "./../../store/actionTypes";
+import { changeDateAndTime } from "../../store/actions";
 import newDate, { changeFormat } from "./../../utils/clock";
 
 function Clock() {
   const { clock, settings } = useSelector((state) => state);
+
   const { date, time } = clock;
+  // console.log({ time, 1: 1 });
   const { format } = settings;
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(actions.changeDateAndTime(newDate()));
+    dispatch(changeDateAndTime(newDate()));
     // TODO:
     // Clear this interval
-    setInterval(() => {
-      dispatch(actions.changeDateAndTime(newDate()));
+    const interval = setInterval(() => {
+      dispatch(changeDateAndTime(newDate()));
     }, 1000);
+
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
 
   return (

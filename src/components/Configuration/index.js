@@ -4,7 +4,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCog } from "@fortawesome/free-solid-svg-icons";
 import Shortcuts from "../Shortcuts";
 import { useDispatch, useSelector } from "react-redux";
-import { actions } from "./../../store/actionTypes";
+import {
+  addLinkToFooter,
+  changeCity,
+  changePomodoroTime,
+  timeFormat,
+  toggleQuote,
+} from "../../store/actions";
 
 // TODO:
 // 1 - Use Object for short url state
@@ -17,85 +23,43 @@ function Configuration() {
     weatherState,
     settings,
     pomodoro: { pomoMinute = 5 },
-  } = useSelector(({ quoteState, settings, pomodoro, weatherState }) => ({
+  } = useSelector(({ quoteState, settings, weatherState, pomodoro }) => ({
     quoteState,
     settings,
     weatherState,
     pomodoro,
   }));
-
-  const len = Object.keys(settings.linkObj).length;
-
-  const [linkFacebook, setLinkFacebook] = useState({
-    userName: len > 0 ? settings.linkObj["facebook"].userName : "",
-    iconName: "",
-    siteName: "",
-  });
-  const [linkGithub, setLinkGithub] = useState({
-    userName: len > 0 ? settings.linkObj["github"].userName : "",
-    iconName: "",
-    siteName: "",
-  });
-  const [linkLinkedin, setLinkLinkedin] = useState({
-    userName: len > 0 ? settings.linkObj["linkedIn"].userName : "",
-    iconName: "",
-    siteName: "",
-  });
-  const [linkTwitter, setLinkTwiter] = useState({
-    userName: len > 0 ? settings.linkObj["twitter"].userName : "",
-    iconName: "",
-    siteName: "",
-  });
-
+  const [links, setLinks] = useState({ ...settings.links });
   const [cityName, setCityName] = useState(weatherState.cityName);
-
   const dispatch = useDispatch();
-
   const [pomoM, setPomoM] = useState(pomoMinute);
 
-  const handleOnSubmit = (event) => {
-    linkTwitter.userName && dispatch(actions.addLinkToFooter(linkTwitter));
-    linkFacebook.userName && dispatch(actions.addLinkToFooter(linkFacebook));
-    linkGithub.userName && dispatch(actions.addLinkToFooter(linkGithub));
-    linkLinkedin.userName && dispatch(actions.addLinkToFooter(linkLinkedin));
-  };
-
-  let faTwitter = "faTwitter",
-    faFacebook = "faFacebook",
-    faGithub = "faGithub",
-    faLinkedin = "faLinkedin";
-
   const handleOnChange = (event) => {
-    const userName = event.target.value;
-    if (event.target.id === "twitter") {
-      setLinkTwiter({ userName, iconName: faTwitter, siteName: "twitter" });
-    }
-    if (event.target.id === "facebook") {
-      setLinkFacebook({ userName, iconName: faFacebook, siteName: "facebook" });
-    }
-    if (event.target.id === "linkedIn") {
-      setLinkLinkedin({ userName, iconName: faLinkedin, siteName: "linkedIn" });
-    }
-    if (event.target.id === "github") {
-      setLinkGithub({ userName, iconName: faGithub, siteName: "github" });
-    }
+    setLinks({
+      ...links,
+      [event.target.name]: event.target.value,
+    });
   };
+  const siteArr = ["twitter", "facebook", "linkedin", "github"];
 
-  const handleCityChange = (event) => {
-    cityName && dispatch(actions.changeCity(cityName));
+  const getSiteLink = () => {
+    return siteArr.map((link, i) => (
+      <input
+        type="text"
+        placeholder={`${link[0].toUpperCase() + link.slice(1)} Username`}
+        onChange={handleOnChange}
+        value={links[link]}
+        name={link}
+        key={i}
+      />
+    ));
   };
 
   const handleSaveSettings = (event) => {
     event.preventDefault();
-    pomoM &&
-      dispatch(
-        actions.changePomodoroTime({
-          pomoMinute: pomoM,
-          pomoSecond: 0,
-        })
-      );
-    handleCityChange(event);
-    handleOnSubmit(event);
+    pomoM && dispatch(changePomodoroTime({ pomoMinute: pomoM }));
+    cityName && dispatch(changeCity(cityName));
+    dispatch(addLinkToFooter(links));
     setIsConOptionVisible(false);
   };
 
@@ -131,7 +95,7 @@ function Configuration() {
                   <div
                     className="off"
                     onClick={() => {
-                      dispatch(actions.timeFormat(false));
+                      dispatch(timeFormat(false));
                     }}
                   >
                     <p id="p-off">OFF</p>
@@ -139,7 +103,7 @@ function Configuration() {
                   <div
                     className="on"
                     onClick={() => {
-                      dispatch(actions.timeFormat(true));
+                      dispatch(timeFormat(true));
                     }}
                     style={{
                       backgroundColor: settings.format ? "#05dfd7" : "#30475e",
@@ -151,36 +115,7 @@ function Configuration() {
               </div>
 
               {/* <!-- Div for entering shortcut links --> */}
-              <div className="shortcut-links">
-                <input
-                  type="text"
-                  placeholder="Twitter Username"
-                  onChange={handleOnChange}
-                  value={linkTwitter.userName}
-                  id="twitter"
-                />
-                <input
-                  type="text"
-                  placeholder="Linkedin Username"
-                  onChange={handleOnChange}
-                  value={linkLinkedin.userName}
-                  id="linkedIn"
-                />
-                <input
-                  type="text"
-                  placeholder="Facebook Username"
-                  onChange={handleOnChange}
-                  value={linkFacebook.userName}
-                  id="facebook"
-                />
-                <input
-                  type="text"
-                  placeholder="Github Username"
-                  onChange={handleOnChange}
-                  value={linkGithub.userName}
-                  id="github"
-                />
-              </div>
+              <div className="shortcut-links">{getSiteLink()}</div>
 
               {/* <!-- On-Off div for the quotes --> */}
               <div className="on-off-quotes">
@@ -188,7 +123,7 @@ function Configuration() {
                   <div
                     className={`off `}
                     onClick={() => {
-                      dispatch(actions.toggleQuote(false));
+                      dispatch(toggleQuote(false));
                     }}
                   >
                     <p id="p-hide-q">OFF</p>
@@ -199,7 +134,7 @@ function Configuration() {
                       backgroundColor: showQuote ? "#05dfd7" : "#30475e",
                     }}
                     onClick={() => {
-                      dispatch(actions.toggleQuote(true));
+                      dispatch(toggleQuote(true));
                     }}
                   >
                     <p id="p-show-q">ON</p>
@@ -225,7 +160,7 @@ function Configuration() {
                   type="number"
                   id="pomoM"
                   placeholder="Minute"
-                  min={0}
+                  min={1}
                   max={60}
                   value={pomoM}
                   onChange={(event) => {

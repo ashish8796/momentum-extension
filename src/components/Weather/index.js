@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getIconURI, getWeatherByQuery, getWeatherURI } from "../../config";
-import { actions } from "./../../store/actionTypes";
+import { setCurrentLocation, setCurrentWeather } from "../../store/actions";
 
 function Weather() {
   const dispatch = useDispatch();
-  const { weatherState, currentLocation } = useSelector((state) => state);
+  const weatherState = useSelector((state) => state.weatherState);
+
+  const { currentLocation } = weatherState;
   const { query, currentTemp, weather, icon, cityName } = weatherState;
 
   let iconUrl = getIconURI(icon);
@@ -22,9 +24,7 @@ function Weather() {
         let weather = data.weather[0].description;
         let icon = data.weather[0].icon;
         let cityName = data.name;
-        dispatch(
-          actions.getCurrentWeather({ currentTemp, weather, icon, cityName })
-        );
+        dispatch(setCurrentWeather({ currentTemp, weather, icon, cityName }));
       })
       .catch((error) => {
         window.location.reload();
@@ -38,8 +38,7 @@ function Weather() {
 
       // TODO:
       // Rename fetchCurrentLocation to setCurrentLocation
-      !cityName &&
-        dispatch(actions.fetchCurrentLocation({ latitude, longitude }));
+      !cityName && dispatch(setCurrentLocation({ latitude, longitude }));
     });
   }, []);
 

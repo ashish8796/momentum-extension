@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSortDown } from "@fortawesome/free-solid-svg-icons";
-import { actions } from "./../../store/actionTypes";
+import { addTodo } from "../../store/actions";
 import { useDispatch, useSelector } from "react-redux";
 import TodoList from "./TodoList";
 
@@ -32,6 +32,8 @@ function Todos() {
     "isAddTodoVisible",
     JSON.stringify({ isAddTodoVisible })
   );
+
+  console.log(todoArr);
 
   // TODO:
   // When todo len === 0. Show add todo button
@@ -144,7 +146,7 @@ function Todos() {
           <form
             onSubmit={(event) => {
               event.preventDefault();
-              newTodo && dispatch(actions.addTodo(newTodo));
+              newTodo && dispatch(addTodo(newTodo));
               setNewTodo("");
             }}
           >

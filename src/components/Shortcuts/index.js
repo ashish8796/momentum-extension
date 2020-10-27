@@ -13,40 +13,33 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 library.add(fab, faFacebookF, faTwitter, faGithub, faLinkedinIn);
 
 function Shortcuts() {
-  const { linkObj } = useSelector((state) => state.settings);
-  const findIcon = (iconName) => {
-    switch (iconName) {
-      case "faTwitter":
-        return faTwitter;
-      case "faFacebook":
-        return faFacebookF;
-      case "faGithub":
-        return faGithub;
-      case "faLinkedin":
-        return faLinkedinIn;
+  const { links } = useSelector((state) => state.settings);
 
-      default:
-        return;
-    }
+  const iconName = {
+    twitter: faTwitter,
+    facebook: faFacebookF,
+    linkedin: faLinkedinIn,
+    github: faGithub,
   };
 
   const addLinkToFooter = () => {
-    return Object.values(linkObj).map((link, i) => (
-      <li key={i}>
-        {
-          <a
-            href={`https://www.${link.siteName}.com/${
-              link.siteName === "linkedIn"
-                ? "in/" + link.userName
-                : link.userName
-            }`}
-            target="_blank"
-          >
-            <FontAwesomeIcon icon={findIcon(link.iconName)} />
-          </a>
-        }
-      </li>
-    ));
+    return Object.keys(links).map(
+      (key, i) =>
+        links[key].length > 0 && (
+          <li key={i}>
+            {
+              <a
+                href={`https://www.${key}.com/${
+                  key === "linkedIn" ? "in/" + links[key] : links[key]
+                }`}
+                target="_blank"
+              >
+                <FontAwesomeIcon icon={iconName[key]} />
+              </a>
+            }
+          </li>
+        )
+    );
   };
 
   return (

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import Clock from "./../Clock";
 import Weather from "./../Weather";
 import { useDispatch, useSelector } from "react-redux";
-import { actions } from "./../../store/actionTypes";
+import { setWallpaper } from "../../store/actions";
 import Quotes from "../Quotes";
 import Todos from "../Todos";
 import Configuration from "../Configuration";
@@ -12,13 +12,14 @@ import { unsplashURI } from "../../config";
 function Background() {
   const dispatch = useDispatch();
   const wallpaperUrl = useSelector((state) => state.background.url);
-
+  console.log({ wallpaperUrl, 1: 1 });
   // TODO:
   // Move fetchBackground to thunk
   const fetchBackground = (uri) => {
     fetch(uri)
       .then((response) => {
-        dispatch(actions.getWallpaper(response.url));
+        // console.log(response.url);
+        dispatch(setWallpaper(response.url));
       })
       .catch((error) => {
         window.location.reload();

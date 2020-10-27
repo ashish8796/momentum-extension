@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { actions } from "./../../store/actionTypes";
+import { deleteTodo, completeTodo, editTodo } from "../../store/actions";
 
 const TodoList = ({
   todo,
@@ -16,7 +16,7 @@ const TodoList = ({
   const { todoArr } = useSelector((state) => state.todos);
   const dispatch = useDispatch();
   const [visibleSelect, setVisibleSelect] = checkToggleSelect;
-  const [editTodo, setEditTodo] = useState(false);
+  const [isEditTodo, setEditTodo] = useState(false);
   const [newValue, setNewValue] = useState("");
 
   const handleOptionClick = (event) => {
@@ -40,12 +40,12 @@ const TodoList = ({
   };
 
   const handleEdit = () => {
-    setEditTodo(!editTodo);
+    setEditTodo(!isEditTodo);
     setVisibleSelect(false);
   };
 
   const handleDelete = () => {
-    dispatch(actions.deleteTodo(todo.id));
+    dispatch(deleteTodo(todo.id));
     todoArr.length <= 1 && setIsAddTodoVisible(!isAddTodoVisible);
     setVisibleSelect(false);
   };
@@ -67,17 +67,17 @@ const TodoList = ({
           className="ckbox"
           checked={todo.isCompleted}
           onChange={(event) => {
-            dispatch(actions.completeTodo(todo.id));
+            dispatch(completeTodo(todo.id));
           }}
         />
-        {!editTodo && (
+        {!isEditTodo && (
           <p style={{ color: todo.isCompleted && "gray" }}>{todo.value}</p>
         )}
-        {editTodo && (
+        {isEditTodo && (
           <form
             onSubmit={(event) => {
               event.preventDefault();
-              dispatch(actions.editTodo(todo.id, newValue));
+              dispatch(editTodo(todo.id, newValue));
               setEditTodo(false);
             }}
           >
