@@ -24,11 +24,13 @@ function Configuration() {
     settings,
     pomodoro: { pomoMinute = 5 },
   } = useSelector(({ quoteState, settings, weatherState, pomodoro }) => ({
-    quoteState,
+    ...quoteState,
     settings,
     weatherState,
     pomodoro,
   }));
+
+  // console.log(showQuote);
   const [links, setLinks] = useState({ ...settings.links });
   const [cityName, setCityName] = useState(weatherState.cityName);
   const dispatch = useDispatch();

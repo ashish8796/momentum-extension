@@ -15,14 +15,13 @@ export default function quoteReducer(state = initialState, action) {
 
       return {
         ...state,
-        quoteState: { ...state.quoteState, showQuote: action.payload },
+        showQuote: action.payload,
       };
     }
     case GET_QUOTES: {
-      //   console.log(action.payload);
       return {
         ...state,
-        quoteState: { ...state.quoteState, quote: action.payload },
+        quote: action.payload,
       };
     }
 

@@ -18,16 +18,14 @@ export default function todosReducer(state = initialState, action) {
       };
       localStorage.setItem(
         "userTodos",
-        JSON.stringify({ todoArr: [...state.todos.todoArr, newTodo] })
+        JSON.stringify({ todoArr: [...state.todoArr, newTodo] })
       );
 
-      return {
-        todos: { todoArr: [...state.todos.todoArr, newTodo] },
-      };
+      return { todoArr: [...state.todoArr, newTodo] };
     }
 
     case COMPLETE_TODO: {
-      const todoArr = state.todos.todoArr.map((item) => {
+      const todoArr = state.todoArr.map((item) => {
         return item.id !== action.payload.id
           ? item
           : {
@@ -38,20 +36,20 @@ export default function todosReducer(state = initialState, action) {
       });
 
       localStorage.setItem("userTodos", JSON.stringify({ todoArr }));
-      return { todos: { ...state.todos, todoArr } };
+      return { todoArr };
     }
 
     case DELETE_TODO: {
-      const newArr = state.todos.todoArr.filter(
+      const newArr = state.todoArr.filter(
         (item) => item.id !== action.payload.id
       );
 
       localStorage.setItem("userTodos", JSON.stringify({ todoArr: newArr }));
-      return { todos: { ...state.todos, todoArr: newArr } };
+      return { todoArr: newArr };
     }
 
     case EDIT_TODO: {
-      const newArr = [...state.todos.todoArr].map((el) => {
+      const newArr = [...state.todoArr].map((el) => {
         if (el.id === action.payload.id) {
           return {
             value: action.payload.newValue,
@@ -63,7 +61,7 @@ export default function todosReducer(state = initialState, action) {
       });
 
       localStorage.setItem("userTodos", JSON.stringify({ todoArr: newArr }));
-      return { todos: { ...state.todos, todoArr: newArr } };
+      return { todoArr: newArr };
     }
 
     default:

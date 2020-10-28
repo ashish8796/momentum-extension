@@ -22,6 +22,18 @@ import {
 // 1 - Move actions to seperate file
 // 2 - Export individual function instead of whole object
 
+export const setWallpaper = (uri) => async (dispatch) => {
+  try {
+    const response = await fetch(uri);
+    dispatch({
+      type: SET_WALLPAPER,
+      payload: { url: response.url },
+    });
+  } catch (e) {
+    window.location.reload();
+  }
+};
+
 export const changeDateAndTime = (newDate) => {
   return {
     type: CHANGE_DATE_AND_TIME,
@@ -38,27 +50,37 @@ export const setCurrentLocation = (obj) => {
 
 // TODO:
 // Change getWallpaper to setWallpaper
-export const setWallpaper = (url) => {
-  return {
-    type: SET_WALLPAPER,
-    payload: { url },
-  };
-};
+// export const setWallpaper = (url) => {
 
 // TODO:
 // Change getCurrentWeather to setCurrentWeather
-export const setCurrentWeather = (obj) => {
-  return {
-    type: SET_CURRENT_WEATHER,
-    payload: obj,
-  };
+export const setCurrentWeather = (uri) => async (dispatch) => {
+  try {
+    const response = await (await fetch(uri)).json();
+    let currentTemp = Math.round(response.main.temp - 275);
+    let weather = response.weather[0].description;
+    let icon = response.weather[0].icon;
+    let cityName = response.name;
+    let obj = { currentTemp, weather, icon, cityName };
+    console.log(obj);
+    dispatch({
+      type: SET_CURRENT_WEATHER,
+      payload: obj,
+    });
+  } catch (error) {
+    window.location.reload();
+  }
 };
 
-export const getQuotes = (quote) => {
-  return {
-    type: GET_QUOTES,
-    payload: quote,
-  };
+export const getQuotes = (uri) => async (dispatch) => {
+  try {
+    const response = await (await fetch(uri)).json();
+    let quote = response.contents.quotes[0].quote;
+    dispatch({
+      type: GET_QUOTES,
+      payload: quote,
+    });
+  } catch (e) {}
 };
 
 export const addTodo = (todo) => {

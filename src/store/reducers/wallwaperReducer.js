@@ -8,7 +8,7 @@ export default function wallpaperReducer(state = initialState, action) {
   switch (action.type) {
     case SET_WALLPAPER: {
       //   console.log(action.payload);
-      return { ...state, background: action.payload };
+      return { ...state, ...action.payload };
     }
 
     default:

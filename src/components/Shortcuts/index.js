@@ -15,6 +15,8 @@ library.add(fab, faFacebookF, faTwitter, faGithub, faLinkedinIn);
 function Shortcuts() {
   const { links } = useSelector((state) => state.settings);
 
+  // console.log({ links, 2: 2 });
+
   const iconName = {
     twitter: faTwitter,
     facebook: faFacebookF,

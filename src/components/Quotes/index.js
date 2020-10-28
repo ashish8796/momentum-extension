@@ -13,15 +13,10 @@ function Quotes() {
 
   // Try to async await
   const fetchUri = (uri) => {
-    fetch(uri)
-      .then((response) => response.json())
-      .then((data) => {
-        let quote = data.contents.quotes[0].quote;
-        // console.log(quote)
-        dispatch(getQuotes(quote));
-      });
+    dispatch(getQuotes(uri));
   };
 
+  // console.log(quote);
   useEffect(() => {
     fetchUri(quoteUri);
   }, []);

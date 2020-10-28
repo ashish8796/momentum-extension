@@ -18,8 +18,7 @@ const initialState = {
 export default function clockReducer(state = initialState, action) {
   switch (action.type) {
     case CHANGE_DATE_AND_TIME: {
-      //   console.log(action.payload);
-      return { ...state, clock: action.payload };
+      return { ...state, ...action.payload };
     }
 
     default:

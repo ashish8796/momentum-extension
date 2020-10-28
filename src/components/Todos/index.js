@@ -33,7 +33,7 @@ function Todos() {
     JSON.stringify({ isAddTodoVisible })
   );
 
-  console.log(todoArr);
+  // console.log(todoArr);
 
   // TODO:
   // When todo len === 0. Show add todo button

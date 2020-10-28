@@ -20,27 +20,27 @@ export default function settingsReducer(state = initialState, action) {
       localStorage.setItem(
         "settings",
         JSON.stringify({
-          ...state.settings,
-          links: { ...action.payload },
+          ...state,
+          links: { ...state.links, ...action.payload },
         })
       );
       return {
         ...state,
-        settings: {
-          ...state.settings,
-          links: { ...action.payload },
-        },
+        links: { ...state.links, ...action.payload },
       };
     }
 
     case CHANGE_FORMAT: {
+      //   console.log(state);
       localStorage.setItem(
         "settings",
-        JSON.stringify({ ...state.settings, format: action.payload })
+        JSON.stringify({ links: state.links, format: action.payload })
       );
+      console.log(action.payload);
+
       return {
         ...state,
-        settings: { ...state.settings, format: action.payload },
+        format: action.payload,
       };
     }
 

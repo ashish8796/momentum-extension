@@ -26,11 +26,11 @@ export default function weatherReducer(state = initialState, action) {
     case SET_CURRENT_WEATHER: {
       localStorage.setItem(
         "weather",
-        JSON.stringify({ ...state.weatherState, query: "", ...action.payload })
+        JSON.stringify({ ...state, query: "", ...action.payload })
       );
       return {
         ...state,
-        weatherState: { ...state.weatherState, ...action.payload },
+        ...action.payload,
       };
     }
     case SET_CURRENT_LOCATION: {
@@ -38,9 +38,10 @@ export default function weatherReducer(state = initialState, action) {
     }
 
     case CHANGE_CITY: {
+      // console.log(action.payload);
       return {
         ...state,
-        weatherState: { ...state.weatherState, query: action.payload },
+        query: action.payload,
       };
     }
 

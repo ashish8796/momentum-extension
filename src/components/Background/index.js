@@ -12,21 +12,16 @@ import { unsplashURI } from "../../config";
 function Background() {
   const dispatch = useDispatch();
   const wallpaperUrl = useSelector((state) => state.background.url);
-  console.log({ wallpaperUrl, 1: 1 });
+
   // TODO:
   // Move fetchBackground to thunk
   const fetchBackground = (uri) => {
-    fetch(uri)
-      .then((response) => {
-        // console.log(response.url);
-        dispatch(setWallpaper(response.url));
-      })
-      .catch((error) => {
-        window.location.reload();
-      });
+    dispatch(setWallpaper(uri));
   };
+
   useEffect(() => {
     fetchBackground(unsplashURI);
+
     let interval = setInterval(() => {
       fetchBackground(unsplashURI);
     }, 60000);

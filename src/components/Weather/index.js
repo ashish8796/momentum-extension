@@ -17,18 +17,7 @@ function Weather() {
   // TODO:
   // Move fetch weather to redux thunk
   const fetchWeather = (uri) => {
-    fetch(uri)
-      .then((response) => response.json())
-      .then((data) => {
-        let currentTemp = Math.round(data.main.temp - 275);
-        let weather = data.weather[0].description;
-        let icon = data.weather[0].icon;
-        let cityName = data.name;
-        dispatch(setCurrentWeather({ currentTemp, weather, icon, cityName }));
-      })
-      .catch((error) => {
-        window.location.reload();
-      });
+    dispatch(setCurrentWeather(uri));
   };
 
   useEffect(() => {
@@ -41,9 +30,9 @@ function Weather() {
       !cityName && dispatch(setCurrentLocation({ latitude, longitude }));
     });
   }, []);
-
   useEffect(() => {
     const uri = getWeatherByQuery(query);
+    // console.log(query, uri);
     query && fetchWeather(uri);
   }, [query]);
 
