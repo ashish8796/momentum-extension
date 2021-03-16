@@ -38,7 +38,6 @@ export default function weatherReducer(state = initialState, action) {
     }
 
     case CHANGE_CITY: {
-      // console.log(action.payload);
       return {
         ...state,
         query: action.payload,
