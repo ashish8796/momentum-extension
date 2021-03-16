@@ -31,6 +31,8 @@ function Background() {
     };
   }, []);
 
+  console.log(wallpaperUrl);
+
   return (
     <div
       className="wrapper"

@@ -50,7 +50,6 @@ export const setCurrentLocation = (obj) => {
 
 // TODO:
 // Change getWallpaper to setWallpaper
-// export const setWallpaper = (url) => {
 
 // TODO:
 // Change getCurrentWeather to setCurrentWeather
