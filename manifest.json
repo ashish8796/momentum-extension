@@ -1,0 +1,9 @@
+{
+  "name": "M EASY",
+  "version": "1.0",
+  "description": "Manage todo list, weather update, clock, pomodoro, motivational quotes",
+  "manifest_version": 2, 
+  "chrome_url_overrides": {
+    "newtab": "./build/index.html"
+  }
+}

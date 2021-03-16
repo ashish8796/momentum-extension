@@ -30,6 +30,7 @@ function Weather() {
       !cityName && dispatch(setCurrentLocation({ latitude, longitude }));
     });
   }, []);
+
   useEffect(() => {
     const uri = getWeatherByQuery(query);
     // console.log(query, uri);
